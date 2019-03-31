@@ -1,4 +1,7 @@
-import edu.princeton.cs.algs4.*;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdIn;
+import java.util.NoSuchElementException;
+import java.lang.IllegalArgumentException;
 
 public class Deque<Item> {
 	
@@ -24,7 +27,7 @@ public class Deque<Item> {
 	// add the item to the front
 	public void addFirst(Item item) {
 		if (item == null) {
-			throw new java.lang.IllegalArgumentException("argument item should not be null.");
+			throw new IllegalArgumentException("argument item should not be null.");
 		}
 		Node node = new Node();
 		node.item = item;
@@ -39,7 +42,7 @@ public class Deque<Item> {
 	
 	public void addLast(Item item) {
 		if (item == null) {
-			throw new java.lang.IllegalArgumentException("argument item should not be null.");
+			throw new IllegalArgumentException("argument item should not be null.");
 		}
 		Node node = new Node();
 		node.item = item;
@@ -52,7 +55,7 @@ public class Deque<Item> {
 
 	public Item removeFirst() {
 		if (isEmpty()) {
-			throw new java.util.NoSuchElementException("no item to be removed in the deque");
+			throw new NoSuchElementException("no item to be removed in the deque");
 		}
 		
 		Node oldFirst = first;
@@ -67,7 +70,7 @@ public class Deque<Item> {
 	
 	public Item removeLast() {
 		if (isEmpty()) {
-			throw new java.util.NoSuchElementException("no item to be removed in the deque");
+			throw new NoSuchElementException("no item to be removed in the deque");
 		}
 		
 		Node oldLast = last;
