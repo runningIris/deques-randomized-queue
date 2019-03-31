@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
+import java.util.Iterator;
 
 public class RandomizedQueue<Item> {
 	private Node first, last;
@@ -82,7 +83,7 @@ public class RandomizedQueue<Item> {
 	public java.util.Iterator<Item> iterator() {
 		return new RandomizedQueueIterator();
 	}
-	private class RandomizedQueueIterator implements java.util.Iterator<Item> {
+	private class RandomizedQueueIterator implements Iterator<Item> {
 		private Node current = first;
 
 		public boolean hasNext() {

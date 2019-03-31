@@ -2,6 +2,7 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdIn;
 import java.util.NoSuchElementException;
 import java.lang.IllegalArgumentException;
+import java.util.Iterator;
 
 public class Deque<Item> {
 	
@@ -82,14 +83,35 @@ public class Deque<Item> {
 		}
 		return oldLast.item;		
 	}
-	
+	public Iterator<Item> iterator() {
+		return new DequeIterator();
+	}
+
+	private class DequeIterator implements Iterator<Item> {
+		private Node current = first;
+
+		public boolean hasNext() {
+			return current != null;
+		}
+		public Item next() {
+			if (current == null) {
+				throw new java.util.NoSuchElementException("no more items to return in the next() method.");
+			}
+			Item item = current.item;
+			current = current.next;
+			return item;
+		}
+
+	}
+
 	public static void main(String[] args) {
 		Deque<String> k = new Deque<String>();
 		k.addFirst("hha");
 		k.addFirst("haha");
 		k.addFirst("heihei");
 		k.addLast("heiha");
-		
+		Iterator<String> iterator = k.iterator();
+		StdOut.println(iterator.next());
 	}
 }
 

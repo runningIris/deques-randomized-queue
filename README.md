@@ -2,5 +2,7 @@
 
 - [x] deque
 - [x] randomized queue
+- [x] permutation, testing client
+- [x] submit 1st time with [feedbacks/1.md]()
 - [ ] submit the assignment and optimize according to the feedbacks
 

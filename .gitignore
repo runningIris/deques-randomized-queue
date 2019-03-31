@@ -7,3 +7,4 @@ out/
 *.iml
 *.class
 .DS_Store
+*.zip
