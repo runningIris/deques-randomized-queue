@@ -1,5 +1,9 @@
+/* Folders */
 .idea/
 out/
+.lift/
+
+/* Files */
 *.iml
 *.class
-
+.DS_Store
