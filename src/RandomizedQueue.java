@@ -1,6 +1,6 @@
-import edu.princeton.cs.algs4.*;
-//import edu.princeton.cs.algs4.StdOut;
-//import edu.princeton.cs.algs4.StdRandom;
+//import edu.princeton.cs.algs4.*;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class RandomizedQueue<Item> {
 	private Node first, last;
@@ -43,20 +43,45 @@ public class RandomizedQueue<Item> {
 		first = first.next;
 		return oldFirst.item;
 	}
+
 	public Item sample() {
 		if (first == null) {
 			throw new java.util.NoSuchElementException("no more items to return in the sample() method.");
 		}
-		int len = size();
-		int random = StdRandom.uniform(len);
-		int i = 0;
-		Node current = first;
 
-		while (i < random) {
-			current = current.next;
+		int len = size();
+
+		if (len == 1) {
+			Item item = first.item;
+			first = last = null;
+			return item;
 		}
 
-		return current.item;
+		int random = StdRandom.uniform(len);
+
+		if (random == 0) {
+			Item item = first.item;
+			first = first.next;
+			return item;
+		}
+
+		int i = 0;
+
+		StdOut.println(len);
+        StdOut.println(random);
+
+        Node prev = new Node();
+        prev.next = first;
+
+        while(i < random) {
+			i++;
+            prev = prev.next;
+        }
+
+		Item item = prev.next.item;
+		prev.next = prev.next.next;
+
+        return item;
 	}
 	public java.util.Iterator<Item> iterator() {
 		return new RandomizedQueueIterator();
@@ -82,9 +107,12 @@ public class RandomizedQueue<Item> {
 	public static void main(String[] args) {
 		RandomizedQueue<String> r = new RandomizedQueue<>();
 		r.enqueue("hello");
+		r.enqueue("kkk");
+		r.enqueue("iii");
 		r.enqueue("world");
-		java.util.Iterator<String> iterator = r.iterator();
-		StdOut.println(iterator.next());
-		StdOut.println(iterator.next());
+        StdOut.println(r.sample());
+		StdOut.println(r.sample());
+		StdOut.println(r.sample());
+		StdOut.println(r.sample());
 	}
 }
