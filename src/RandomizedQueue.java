@@ -67,9 +67,6 @@ public class RandomizedQueue<Item> {
 
 		int i = 0;
 
-		StdOut.println(len);
-        StdOut.println(random);
-
         Node prev = new Node();
         prev.next = first;
 
