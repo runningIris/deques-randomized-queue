@@ -1,7 +1,5 @@
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdIn;
 import java.util.NoSuchElementException;
-import java.lang.IllegalArgumentException;
 import java.util.Iterator;
 
 public class Deque<Item> implements Iterable<Item> {
@@ -58,15 +56,12 @@ public class Deque<Item> implements Iterable<Item> {
 		if (isEmpty()) {
 			throw new NoSuchElementException("no item to be removed in the deque");
 		}
-		
-		Node oldFirst = first;
-		
-		if (oldFirst != null) {
-			first = oldFirst.next;
-		} else {
-			first = last = null;
-		}
-		return oldFirst.item;
+
+		Item item = first.item;
+
+		first = first.next;
+
+		return item;
 	}
 	
 	public Item removeLast() {
@@ -95,7 +90,7 @@ public class Deque<Item> implements Iterable<Item> {
 		}
 		public Item next() {
 			if (current == null) {
-				throw new java.util.NoSuchElementException("no more items to return in the next() method.");
+				throw new NoSuchElementException("no more items to return in the next() method.");
 			}
 			Item item = current.item;
 			current = current.next;

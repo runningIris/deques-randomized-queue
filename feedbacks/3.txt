@@ -63,7 +63,7 @@ Permutation:
 
 % spotbugs *.class
 *-----------------------------------------------------------
-H C NP_NULL_ON_SOME_PATH NP: Dereferences the variable 'oldFirst', but its value might be null on some execution branch.  Dereferenced at Deque.java:[line 69]
+H C RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE RCN: Checks whether the variable 'first' is null [line 64], even though it can't be null because it was previously dereferenced.  At Deque.java:[line 62]
 Warnings generated: 1
 
 
@@ -82,9 +82,9 @@ PMD ends with 2 warnings.
 
 % checkstyle *.java
 *-----------------------------------------------------------
-[WARN] Deque.java:2:8: Unused import statement for 'edu.princeton.cs.algs4.StdIn'. [UnusedImports]
-[WARN] Deque.java:4:1: Unnecessary import statement for 'java.lang.IllegalArgumentException' because it is from the package 'java.lang'. [RedundantImport]
-[WARN] Deque.java:4:8: Unused import statement for 'java.lang.IllegalArgumentException'. [UnusedImports]
+- [x] [WARN] Deque.java:2:8: Unused import statement for 'edu.princeton.cs.algs4.StdIn'. [UnusedImports]
+- [x] [WARN] Deque.java:4:1: Unnecessary import statement for 'java.lang.IllegalArgumentException' because it is from the package 'java.lang'. [RedundantImport]
+- [x] [WARN] Deque.java:4:8: Unused import statement for 'java.lang.IllegalArgumentException'. [UnusedImports]
 [WARN] Deque.java:8:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
 [WARN] Deque.java:36:26: Inner assignments should be avoided. [InnerAssignment]
 [WARN] Deque.java:51:26: Inner assignments should be avoided. [InnerAssignment]

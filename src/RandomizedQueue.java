@@ -1,6 +1,7 @@
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
 	private Node first, last;
@@ -23,7 +24,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	}
 	public void enqueue(Item item) {
 		if (item == null) {
-			throw new java.lang.IllegalArgumentException("item should not be null in method enqueue.");
+			throw new IllegalArgumentException("item should not be null in method enqueue.");
 		}
 		Node newNode = new Node();
 		newNode.item = item;
@@ -37,7 +38,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 	}
 	public Item dequeue() {
 		if (first == null) {
-			throw new java.util.NoSuchElementException("no more items to return in the dequeue() method.");
+			throw new NoSuchElementException("no more items to return in the dequeue() method.");
 		}
 		Node oldFirst = first;
 		first = first.next;
@@ -46,7 +47,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
 	public Item sample() {
 		if (first == null) {
-			throw new java.util.NoSuchElementException("no more items to return in the sample() method.");
+			throw new NoSuchElementException("no more items to return in the sample() method.");
 		}
 
 		int len = size();
@@ -80,7 +81,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         return item;
 	}
-	public java.util.Iterator<Item> iterator() {
+	public Iterator<Item> iterator() {
 		return new RandomizedQueueIterator();
 	}
 	private class RandomizedQueueIterator implements Iterator<Item> {
@@ -91,7 +92,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 		}
 		public Item next() {
 			if (current == null) {
-				throw new java.util.NoSuchElementException("no more items to return in the next() method.");
+				throw new NoSuchElementException("no more items to return in the next() method.");
 			}
 
 			Item item = current.item;
