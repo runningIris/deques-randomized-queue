@@ -14,3 +14,5 @@
 - [x] removed "StdIn.readAllStrings()" and the use of array in Permutation.java, score 64/100 with [feedbacks/3.txt](https://github.com/runningIris/deques-randomized-queue/blob/master/feedbacks/3.txt)
 
     (1694 lines of feedback... 我要先去死一死了...)
+
+- [x] fix some checkstyle problems, 65/100 [feedbacks/4.txt](https://github.com/runningIris/deques-randomized-queue/blob/master/feedbacks/4.txt)

@@ -18,7 +18,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public int size() {
         int len = 0;
         Node current = first;
-        while (current != null) {
+        while(current != null) {
             len++;
             current = current.next;
         }
@@ -75,7 +75,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         Node prev = new Node();
         prev.next = first;
 
-        while (i < random) {
+        while(i < random) {
             i++;
             prev = prev.next;
         }
