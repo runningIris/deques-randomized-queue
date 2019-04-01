@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 import java.lang.IllegalArgumentException;
 import java.util.Iterator;
 
-public class Deque<Item> {
+public class Deque<Item> implements Iterable<Item> {
 	
 	private Node first, last;
 	

@@ -1,0 +1,1695 @@
+Deques and Randomized Queues
+
+See the Assessment Guide for information on how to interpret this report.
+
+ASSESSMENT SUMMARY
+
+Compilation:  PASSED
+API:          PASSED
+
+Spotbugs:     FAILED (1 warning)
+PMD:          FAILED (2 warnings)
+Checkstyle:   FAILED (0 errors, 14 warnings)
+
+Correctness:  22/43 tests passed
+Memory:       27/30 tests passed
+Timing:       140/193 tests passed
+
+Aggregate score: 64.21%
+[Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
+
+ASSESSMENT DETAILS
+
+The following files were submitted:
+----------------------------------
+2.4K Apr  1 09:19 Deque.java
+ 452 Apr  1 09:19 Permutation.java
+2.4K Apr  1 09:19 RandomizedQueue.java
+
+
+********************************************************************************
+*  COMPILING
+********************************************************************************
+
+
+% javac Deque.java
+*-----------------------------------------------------------
+
+% javac RandomizedQueue.java
+*-----------------------------------------------------------
+
+% javac Permutation.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+Checking the APIs of your programs.
+*-----------------------------------------------------------
+Deque:
+
+RandomizedQueue:
+
+Permutation:
+
+================================================================
+
+
+********************************************************************************
+*  CHECKING STYLE AND COMMON BUG PATTERNS
+********************************************************************************
+
+
+% spotbugs *.class
+*-----------------------------------------------------------
+H C NP_NULL_ON_SOME_PATH NP: Dereferences the variable 'oldFirst', but its value might be null on some execution branch.  Dereferenced at Deque.java:[line 69]
+Warnings generated: 1
+
+
+================================================================
+
+
+% pmd .
+*-----------------------------------------------------------
+Deque.java:98: Unnecessary use of fully qualified name 'java.util.NoSuchElementException' due to existing import 'java.util.NoSuchElementException'. [UnnecessaryFullyQualifiedName]
+RandomizedQueue.java:83: Unnecessary use of fully qualified name 'java.util.Iterator' due to existing import 'java.util.Iterator'. [UnnecessaryFullyQualifiedName]
+PMD ends with 2 warnings.
+
+
+================================================================
+
+
+% checkstyle *.java
+*-----------------------------------------------------------
+[WARN] Deque.java:2:8: Unused import statement for 'edu.princeton.cs.algs4.StdIn'. [UnusedImports]
+[WARN] Deque.java:4:1: Unnecessary import statement for 'java.lang.IllegalArgumentException' because it is from the package 'java.lang'. [RedundantImport]
+[WARN] Deque.java:4:8: Unused import statement for 'java.lang.IllegalArgumentException'. [UnusedImports]
+[WARN] Deque.java:8:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
+[WARN] Deque.java:36:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] Deque.java:51:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] Deque.java:67:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] Deque.java:82:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] Permutation.java:5:29: '(' is preceded with whitespace. [MethodParamPad]
+[WARN] RandomizedQueue.java:6:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
+[WARN] RandomizedQueue.java:18:14: 'while' is not followed by whitespace. [WhitespaceAfter]
+[WARN] RandomizedQueue.java:32:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] RandomizedQueue.java:56:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] RandomizedQueue.java:73:14: 'while' is not followed by whitespace. [WhitespaceAfter]
+Checkstyle ends with 0 errors and 14 warnings.
+
+% custom checkstyle checks for Deque.java
+*-----------------------------------------------------------
+[INFO] Deque.java:22: Using a loop in this method might be a performance bug. [Performance]
+
+% custom checkstyle checks for RandomizedQueue.java
+*-----------------------------------------------------------
+[INFO] RandomizedQueue.java:18: Using a loop in this method might be a performance bug. [Performance]
+[INFO] RandomizedQueue.java:73: Using a loop in this method might be a performance bug. [Performance]
+
+% custom checkstyle checks for Permutation.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+********************************************************************************
+*  TESTING CORRECTNESS
+********************************************************************************
+
+Testing correctness of Deque
+*-----------------------------------------------------------
+Running 16 total tests.
+
+Tests 1-6 make random calls to addFirst(), addLast(), removeFirst(),
+removeLast(), isEmpty(), and size(). The probabilities of each
+operation are (p1, p2, p3, p4, p5, p6), respectively.
+
+Test 1: check random calls to addFirst(), addLast(), and size()
+  *    5 random calls (0.4, 0.4, 0.0, 0.0, 0.0, 0.2)
+  *   50 random calls (0.4, 0.4, 0.0, 0.0, 0.0, 0.2)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.random(TestDeque.java:139)
+    TestDeque.test1(TestDeque.java:442)
+    TestDeque.main(TestDeque.java:845)
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.size()
+
+  *  500 random calls (0.4, 0.4, 0.0, 0.0, 0.0, 0.2)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.random(TestDeque.java:139)
+    TestDeque.test1(TestDeque.java:443)
+    TestDeque.main(TestDeque.java:845)
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addLast(1)
+         deque.addFirst(2)
+         deque.addFirst(3)
+         deque.addFirst(4)
+         deque.addFirst(5)
+         deque.addFirst(6)
+         deque.addFirst(7)
+         deque.addFirst(8)
+         deque.addFirst(9)
+         deque.addLast(10)
+         deque.size()
+
+  * 1000 random calls (0.4, 0.4, 0.0, 0.0, 0.0, 0.2)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.random(TestDeque.java:139)
+    TestDeque.test1(TestDeque.java:444)
+    TestDeque.main(TestDeque.java:845)
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addFirst(1)
+         deque.addLast(2)
+         deque.addFirst(3)
+         deque.addFirst(4)
+         deque.addFirst(5)
+         deque.addFirst(6)
+         deque.addFirst(7)
+         deque.size()
+
+==> FAILED
+
+Test 2: check random calls to addFirst(), removeFirst(), and isEmpty()
+  *    5 random calls (0.8, 0.0, 0.1, 0.0, 0.1, 0.0)
+  *   50 random calls (0.8, 0.0, 0.1, 0.0, 0.1, 0.0)
+  *  500 random calls (0.8, 0.0, 0.1, 0.0, 0.1, 0.0)
+  * 1000 random calls (0.8, 0.0, 0.1, 0.0, 0.1, 0.0)
+  *    5 random calls (0.1, 0.0, 0.8, 0.0, 0.1, 0.0)
+  *   50 random calls (0.1, 0.0, 0.8, 0.0, 0.1, 0.0)
+  *  500 random calls (0.1, 0.0, 0.8, 0.0, 0.1, 0.0)
+  * 1000 random calls (0.1, 0.0, 0.8, 0.0, 0.1, 0.0)
+==> passed
+
+Test 3: check random calls to addFirst(), removeLast(), and isEmpty()
+  *    5 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0)
+  *   50 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0)
+    - failed on operation 14 of 50
+    - student   removeLast() = 5
+    - reference removeLast() = 2
+
+  *  500 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0)
+    - failed on operation 14 of 500
+    - student   removeLast() = 7
+    - reference removeLast() = 2
+
+  * 1000 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0)
+    - failed on operation 16 of 1000
+    - student   removeLast() = 14
+    - reference removeLast() = 2
+
+  *    5 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0)
+  *   50 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    TestDeque.random(TestDeque.java:106)
+    TestDeque.test3(TestDeque.java:474)
+    TestDeque.main(TestDeque.java:847)
+
+
+  *  500 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0)
+    - failed on operation 122 of 500
+    - student   removeLast() = 121
+    - reference removeLast() = 118
+
+  * 1000 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0)
+    - failed on operation 92 of 1000
+    - student   removeLast() = 90
+    - reference removeLast() = 88
+
+==> FAILED
+
+Test 4: check random calls to addLast(), removeLast(), and isEmpty()
+  *    5 random calls (0.0, 0.8, 0.0, 0.1, 0.1, 0.0)
+  *   50 random calls (0.0, 0.8, 0.0, 0.1, 0.1, 0.0)
+    - failed on operation 4 of 50
+    - student   removeLast() = 1
+    - reference removeLast() = 3
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addLast(1)
+         deque.addLast(2)
+         deque.addLast(3)
+         deque.removeLast()      ==> 1
+
+  *  500 random calls (0.0, 0.8, 0.0, 0.1, 0.1, 0.0)
+    - failed on operation 24 of 500
+    - student   removeLast() = 1
+    - reference removeLast() = 23
+
+  * 1000 random calls (0.0, 0.8, 0.0, 0.1, 0.1, 0.0)
+    - failed on operation 3 of 1000
+    - student   removeLast() = 1
+    - reference removeLast() = 2
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addLast(1)
+         deque.addLast(2)
+         deque.removeLast()      ==> 1
+
+  *    5 random calls (0.0, 0.1, 0.0, 0.8, 0.1, 0.0)
+  *   50 random calls (0.0, 0.1, 0.0, 0.8, 0.1, 0.0)
+    - failed on operation 25 of 50
+    - student   removeLast() = 23
+    - reference removeLast() = 24
+
+  *  500 random calls (0.0, 0.1, 0.0, 0.8, 0.1, 0.0)
+    - failed on operation 12 of 500
+    - student   removeLast() = 10
+    - reference removeLast() = 11
+
+  * 1000 random calls (0.0, 0.1, 0.0, 0.8, 0.1, 0.0)
+    - failed on operation 33 of 1000
+    - student   removeLast() = 31
+    - reference removeLast() = 32
+
+==> FAILED
+
+Test 5: check random calls to addLast(), removeFirst(), and isEmpty()
+  *    5 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0)
+  *   50 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0)
+    - failed on operation 30 of 50
+    - student   removeFirst() = 13
+    - reference removeFirst() = 2
+
+  *  500 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0)
+    - failed on operation 20 of 500
+    - student   removeFirst() = 15
+    - reference removeFirst() = 2
+
+  * 1000 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0)
+    - failed on operation 44 of 1000
+    - student   removeFirst() = 27
+    - reference removeFirst() = 6
+
+  *    5 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0)
+  *   50 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0)
+  *  500 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0)
+    - failed on operation 217 of 500
+    - student   removeFirst() = 212
+    - reference removeFirst() = 211
+
+  * 1000 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0)
+    - failed on operation 236 of 1000
+    - student   removeFirst() = 234
+    - reference removeFirst() = 232
+
+==> FAILED
+
+Test 6: check random calls to addFirst(), addLast(), removeFirst(),
+        removeLast(), isEmpty(), and size()
+  *    5 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.random(TestDeque.java:139)
+    TestDeque.test6(TestDeque.java:519)
+    TestDeque.main(TestDeque.java:850)
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.isEmpty()         ==> true
+         deque.addLast(2)
+         deque.size()
+
+  *   50 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1)
+    - failed on operation 6 of 50
+    - student   removeLast() = 2
+    - reference removeLast() = 5
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.isEmpty()         ==> true
+         deque.addLast(2)
+         deque.addLast(3)
+         deque.addLast(4)
+         deque.addLast(5)
+         deque.removeLast()      ==> 2
+
+  *  500 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1)
+    - failed on operation 16 of 500
+    - student   removeLast() = 3
+    - reference removeLast() = 14
+
+  * 1000 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1)
+    - failed on operation 5 of 1000
+    - student   removeLast() = 1
+    - reference removeLast() = 2
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addLast(1)
+         deque.addLast(2)
+         deque.addFirst(3)
+         deque.isEmpty()         ==> false
+         deque.removeLast()      ==> 1
+
+  *    5 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1)
+    - failed on operation 5 of 5
+    - student   removeLast() = 1
+    - reference removeLast() = 2
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addLast(1)
+         deque.addLast(2)
+         deque.isEmpty()         ==> false
+         deque.isEmpty()         ==> false
+         deque.removeLast()      ==> 1
+
+  *   50 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeFirst(Deque.java:59)
+    TestDeque.random(TestDeque.java:87)
+    TestDeque.test6(TestDeque.java:524)
+    TestDeque.main(TestDeque.java:850)
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.isEmpty()         ==> true
+         deque.addLast(2)
+         deque.removeLast()      ==> 2
+         deque.addLast(4)
+         deque.addFirst(5)
+         deque.isEmpty()         ==> false
+         deque.removeLast()      ==> 4
+         deque.addFirst(8)
+         deque.removeFirst()     ==> 8
+         deque.removeFirst()
+
+  *  500 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.random(TestDeque.java:139)
+    TestDeque.test6(TestDeque.java:525)
+    TestDeque.main(TestDeque.java:850)
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.isEmpty()         ==> true
+         deque.size()
+
+  * 1000 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.random(TestDeque.java:139)
+    TestDeque.test6(TestDeque.java:526)
+    TestDeque.main(TestDeque.java:850)
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.size()
+
+==> FAILED
+
+Test 7: check removeFirst() and removeLast() from an empty deque
+  * removeFirst()
+  * removeLast()
+==> passed
+
+Test 8: check whether two Deque objects can be created at the same time
+  * n = 10
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.check(TestDeque.java:37)
+    TestDeque.checkTwoDequeObjects(TestDeque.java:178)
+    TestDeque.test8(TestDeque.java:588)
+    TestDeque.main(TestDeque.java:852)
+
+    - failed on call 1 to addFirst() in first Deque
+
+  * n = 1000
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.check(TestDeque.java:37)
+    TestDeque.checkTwoDequeObjects(TestDeque.java:178)
+    TestDeque.test8(TestDeque.java:589)
+    TestDeque.main(TestDeque.java:852)
+
+    - failed on call 1 to addFirst() in first Deque
+
+==> FAILED
+
+Test 9: check iterator() after n calls to addFirst()
+  * n = 10
+  * n = 50
+==> passed
+
+Test 10: check iterator() after each of m intermixed calls to
+         addFirst(), addLast(), removeFirst(), and removeLast()
+  * m = 20
+    - number of student   entries = 2
+    - number of reference entries = 3
+    - entry 1 of the two sequences are not equal
+    - student   entry 1 = 7
+    - reference entry 1 = 6
+    - iterator() failed after applying operation 7
+    - sequence of operations was:
+         Deque deque<Integer> = new Deque<Integer>()
+         deque.addFirst(1)
+         deque.removeLast()    ==> 1
+         deque.addFirst(3)
+         deque.removeLast()    ==> 3
+         deque.addLast(5)
+         deque.addLast(6)
+         deque.addLast(7)
+
+  * m = 50
+    - failed on operation 7 of 50
+    - student   removeLast() returned 1
+    - reference removeLast() returned 5
+    - sequence of operations was:
+         Deque deque<Integer> = new Deque<Integer>()
+         deque.addFirst(1)
+         deque.addFirst(2)
+         deque.addFirst(3)
+         deque.removeFirst()   ==> 3
+         deque.addLast(5)
+         deque.removeFirst()   ==> 2
+         deque.removeLast()    ==> 1
+
+  * m = 100
+    - number of student   entries = 0
+    - number of reference entries = 2
+    - iterator() failed after applying operation 10
+    - sequence of operations was:
+         Deque deque<Integer> = new Deque<Integer>()
+         deque.addLast(1)
+         deque.removeLast()    ==> 1
+         deque.addLast(3)
+         deque.removeFirst()   ==> 3
+         deque.addLast(5)
+         deque.removeLast()    ==> 5
+         deque.addFirst(7)
+         deque.addFirst(8)
+         deque.addFirst(9)
+         deque.removeLast()    ==> 7
+
+  * m = 1000
+    - number of student   entries = 0
+    - number of reference entries = 1
+    - iterator() failed after applying operation 15
+
+==> FAILED
+
+Test 11: create two nested iterators to same deque
+  * n = 10
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.check(TestDeque.java:37)
+    TestDeque.twoNestedIterators(TestDeque.java:302)
+    TestDeque.test11(TestDeque.java:635)
+    TestDeque.main(TestDeque.java:855)
+
+    - failed on 0th addFirst() operation in deque
+
+  * n = 50
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.check(TestDeque.java:37)
+    TestDeque.twoNestedIterators(TestDeque.java:302)
+    TestDeque.test11(TestDeque.java:636)
+    TestDeque.main(TestDeque.java:855)
+
+    - failed on 0th addFirst() operation in deque
+
+==> FAILED
+
+Test 12: create two parallel iterators to same deque
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.check(TestDeque.java:37)
+    TestDeque.twoParallelIterators(TestDeque.java:370)
+    TestDeque.test12(TestDeque.java:643)
+    TestDeque.main(TestDeque.java:856)
+
+    - failed on call 0 to addLast()
+
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    Deque.size(Deque.java:22)
+    TestDeque.check(TestDeque.java:37)
+    TestDeque.twoParallelIterators(TestDeque.java:370)
+    TestDeque.test12(TestDeque.java:644)
+    TestDeque.main(TestDeque.java:856)
+
+    - failed on call 0 to addLast()
+
+==> FAILED
+
+Test 13: create Deque objects of different parameterized types
+==> passed
+
+Test 14: call addFirst() and addLast() with null argument
+==> passed
+
+Test 15: check that remove() and next() throw the specified exceptions in iterator()
+==> passed
+
+Test 16: call iterator() when the deque is empty
+==> passed
+
+
+Total: 7/16 tests passed!
+
+
+================================================================
+Testing correctness of RandomizedQueue
+*-----------------------------------------------------------
+Running 18 total tests.
+
+Tests 1-4 make random calls to enqueue(), dequeue(), sample(),
+isEmpty(), and size(). The probabilities of each operation are
+(p1, p2, p3, p4, p5), respectively.
+
+Test 1: check random calls to enqueue() and size()
+  *    5 random calls (0.8, 0.0, 0.0, 0.0, 0.2)
+  *   50 random calls (0.8, 0.0, 0.0, 0.0, 0.2)
+  *  500 random calls (0.8, 0.0, 0.0, 0.0, 0.2)
+  * 1000 random calls (0.8, 0.0, 0.0, 0.0, 0.2)
+==> passed
+
+Test 2: check random calls to enqueue() and dequeue()
+  *    5 random calls (0.7, 0.1, 0.0, 0.1, 0.1)
+  *   50 random calls (0.7, 0.1, 0.0, 0.1, 0.1)
+  *  500 random calls (0.7, 0.1, 0.0, 0.1, 0.1)
+  * 1000 random calls (0.7, 0.1, 0.0, 0.1, 0.1)
+  *    5 random calls (0.1, 0.7, 0.0, 0.1, 0.1)
+  *   50 random calls (0.1, 0.7, 0.0, 0.1, 0.1)
+  *  500 random calls (0.1, 0.7, 0.0, 0.1, 0.1)
+  * 1000 random calls (0.1, 0.7, 0.0, 0.1, 0.1)
+==> passed
+
+Test 3: check random calls to enqueue(), sample(), and size()
+  *    5 random calls (0.8, 0.0, 0.1, 0.0, 0.1)
+  *   50 random calls (0.8, 0.0, 0.1, 0.0, 0.1)
+    - failed on operation 34 of 50
+    - student   size() = 28
+    - reference size() = 30
+
+  *  500 random calls (0.8, 0.0, 0.1, 0.0, 0.1)
+    - failed on operation 27 of 500
+    - student   size() = 23
+    - reference size() = 24
+
+  * 1000 random calls (0.8, 0.0, 0.1, 0.0, 0.1)
+    - failed on operation 14 of 1000
+    - student   size() = 11
+    - reference size() = 12
+
+  *    5 random calls (0.1, 0.0, 0.8, 0.0, 0.1)
+    java.util.NoSuchElementException: no more items to return in the sample() method.
+
+    RandomizedQueue.sample(RandomizedQueue.java:49)
+    TestRandomizedQueue.random(TestRandomizedQueue.java:152)
+    TestRandomizedQueue.test3(TestRandomizedQueue.java:764)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1192)
+
+    - sequence of dequeue operations was:
+         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>()
+         rq.enqueue(2)
+         rq.sample()      ==> 2
+         rq.sample()
+
+  *   50 random calls (0.1, 0.0, 0.8, 0.0, 0.1)
+    java.util.NoSuchElementException: no more items to return in the sample() method.
+
+    RandomizedQueue.sample(RandomizedQueue.java:49)
+    TestRandomizedQueue.random(TestRandomizedQueue.java:152)
+    TestRandomizedQueue.test3(TestRandomizedQueue.java:765)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1192)
+
+    - sequence of dequeue operations was:
+         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>()
+         rq.size()        ==> 0
+         rq.size()        ==> 0
+         rq.enqueue(36)
+         rq.sample()      ==> 36
+         rq.sample()
+
+  *  500 random calls (0.1, 0.0, 0.8, 0.0, 0.1)
+    java.util.NoSuchElementException: no more items to return in the sample() method.
+
+    RandomizedQueue.sample(RandomizedQueue.java:49)
+    TestRandomizedQueue.random(TestRandomizedQueue.java:152)
+    TestRandomizedQueue.test3(TestRandomizedQueue.java:766)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1192)
+
+    - sequence of dequeue operations was:
+         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>()
+         rq.size()        ==> 0
+         rq.size()        ==> 0
+         rq.enqueue(193)
+         rq.sample()      ==> 193
+         rq.sample()
+
+  * 1000 random calls (0.1, 0.0, 0.8, 0.0, 0.1)
+    java.util.NoSuchElementException: no more items to return in the sample() method.
+
+    RandomizedQueue.sample(RandomizedQueue.java:49)
+    TestRandomizedQueue.random(TestRandomizedQueue.java:152)
+    TestRandomizedQueue.test3(TestRandomizedQueue.java:767)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1192)
+
+    - sequence of dequeue operations was:
+         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>()
+         rq.enqueue(373)
+         rq.sample()      ==> 373
+         rq.sample()
+
+==> FAILED
+
+Test 4: check random calls to enqueue(), dequeue(), sample(), isEmpty(), and size()
+  *    5 random calls (0.6, 0.1, 0.1, 0.1, 0.1)
+    - failed on operation 5 of 5
+    - student   size() = 2
+    - reference size() = 3
+
+    - sequence of randomized queue operations was:
+         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>()
+         rq.enqueue(4)
+         rq.enqueue(3)
+         rq.sample()      ==> 4
+         rq.enqueue(4)
+         rq.size()        ==> 2
+  *   50 random calls (0.6, 0.1, 0.1, 0.1, 0.1)
+    - failed on operation 11 of 50
+    - student   size() = 4
+    - reference size() = 5
+
+    - sequence of randomized queue operations was:
+         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>()
+         rq.enqueue(16)
+         rq.size()        ==> 1
+         rq.sample()      ==> 16
+         rq.enqueue(26)
+         rq.enqueue(7)
+         rq.enqueue(29)
+         rq.isEmpty()     ==> false
+         rq.isEmpty()     ==> false
+         rq.isEmpty()     ==> false
+         rq.enqueue(46)
+         rq.size()        ==> 4
+  *  500 random calls (0.6, 0.1, 0.1, 0.1, 0.1)
+    - failed on operation 10 of 500
+    - student   size() = 2
+    - reference size() = 4
+
+    - sequence of randomized queue operations was:
+         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>()
+         rq.size()        ==> 0
+         rq.enqueue(98)
+         rq.enqueue(455)
+         rq.isEmpty()     ==> false
+         rq.enqueue(64)
+         rq.size()        ==> 3
+         rq.sample()      ==> 98
+         rq.enqueue(161)
+         rq.sample()      ==> 455
+         rq.size()        ==> 2
+  * 1000 random calls (0.6, 0.1, 0.1, 0.1, 0.1)
+    - failed on operation 18 of 1000
+    - student   size() = 5
+    - reference size() = 6
+
+  *    5 random calls (0.1, 0.6, 0.1, 0.1, 0.1)
+    java.util.NoSuchElementException: no more items to return in the sample() method.
+
+    RandomizedQueue.sample(RandomizedQueue.java:49)
+    TestRandomizedQueue.random(TestRandomizedQueue.java:152)
+    TestRandomizedQueue.test4(TestRandomizedQueue.java:778)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1195)
+
+    - sequence of dequeue operations was:
+         RandomizedQueue<Integer> rq = new RandomizedQueue<Integer>()
+         rq.enqueue(4)
+         rq.sample()      ==> 4
+         rq.enqueue(1)
+         rq.sample()      ==> 1
+         rq.sample()
+
+  *   50 random calls (0.1, 0.6, 0.1, 0.1, 0.1)
+  *  500 random calls (0.1, 0.6, 0.1, 0.1, 0.1)
+    java.util.NoSuchElementException: no more items to return in the dequeue() method.
+
+    RandomizedQueue.dequeue(RandomizedQueue.java:40)
+    TestRandomizedQueue.random(TestRandomizedQueue.java:115)
+    TestRandomizedQueue.test4(TestRandomizedQueue.java:780)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1195)
+
+  * 1000 random calls (0.1, 0.6, 0.1, 0.1, 0.1)
+    - failed on operation 29 of 1000
+    - student   size() = 0
+    - reference size() = 1
+
+==> FAILED
+
+Test 5: call dequeue() and sample() from an empty randomized queue
+  * dequeue()
+  * sample()
+==> passed
+
+Test 6: create multiple randomized queue objects at the same time
+  * n = 10
+  * n = 100
+==> passed
+
+Test 7: check that iterator() returns correct items after a sequence
+        of n enqueue() operations
+  * n = 10
+  * n = 50
+==> passed
+
+Test 8: check that iterator() returns correct items after sequence
+        of m enqueue() and dequeue() operations
+  * m = 10
+  * m = 1000
+==> passed
+
+Test 9: create two nested iterators over the same randomized queue
+  * n = 10
+    - two inner iterators return the same sequence of items
+    - they should return the same set of items but in a
+      different order
+
+  * n = 50
+    - two inner iterators return the same sequence of items
+    - they should return the same set of items but in a
+      different order
+
+==> FAILED
+
+Test 10: create two parallel iterators over the same randomized queue
+  * n = 10
+    - two iterators return the same sequence of values
+    - they should return the same set of values but in a
+      different order
+
+  * n = 50
+    - two iterators return the same sequence of values
+    - they should return the same set of values but in a
+      different order
+
+==> FAILED
+
+Test 11: create two iterators over different randomized queues
+==> passed
+
+Test 12: create RandomizedQueue objects of different parameterized types
+==> passed
+
+Test 13: check randomness of sample() by enqueueing n items, repeatedly calling
+         sample(), and counting the frequency of each item
+  * n = 3, trials = 12000
+    java.util.NoSuchElementException: no more items to return in the sample() method.
+
+    RandomizedQueue.sample(RandomizedQueue.java:49)
+    TestRandomizedQueue.checkRandomnessOfSample(TestRandomizedQueue.java:508)
+    TestRandomizedQueue.test13(TestRandomizedQueue.java:999)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1222)
+
+  * n = 5, trials = 12000
+    java.util.NoSuchElementException: no more items to return in the sample() method.
+
+    RandomizedQueue.sample(RandomizedQueue.java:49)
+    TestRandomizedQueue.checkRandomnessOfSample(TestRandomizedQueue.java:508)
+    TestRandomizedQueue.test13(TestRandomizedQueue.java:1000)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1222)
+
+  * n = 8, trials = 12000
+    java.util.NoSuchElementException: no more items to return in the sample() method.
+
+    RandomizedQueue.sample(RandomizedQueue.java:49)
+    TestRandomizedQueue.checkRandomnessOfSample(TestRandomizedQueue.java:508)
+    TestRandomizedQueue.test13(TestRandomizedQueue.java:1001)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1222)
+
+  * n = 10, trials = 12000
+    java.util.NoSuchElementException: no more items to return in the sample() method.
+
+    RandomizedQueue.sample(RandomizedQueue.java:49)
+    TestRandomizedQueue.checkRandomnessOfSample(TestRandomizedQueue.java:508)
+    TestRandomizedQueue.test13(TestRandomizedQueue.java:1002)
+    TestRandomizedQueue.main(TestRandomizedQueue.java:1222)
+
+==> FAILED
+
+Test 14: check randomness of dequeue() by enqueueing n items, dequeueing n items,
+         and seeing whether each of the n! permutations is equally likely
+  * n = 2, trials = 12000
+
+            value  observed  expected   2*O*ln(O/E)
+        -------------------------------------------
+               AB     12000    6000.0      16635.53
+               BA         0    6000.0          0.00
+        -------------------------------------------
+                      12000   12000.0      16635.53
+
+    G-statistic = 16635.53 (p-value = 0.000000, reject if p-value <= 0.0001)
+    Note: a correct solution will fail this test by bad luck 1 time in 10,000.
+
+  * n = 3, trials = 12000
+
+            value  observed  expected   2*O*ln(O/E)
+        -------------------------------------------
+              ABC     12000    2000.0      43002.23
+              ACB         0    2000.0          0.00
+              BAC         0    2000.0          0.00
+              BCA         0    2000.0          0.00
+              CAB         0    2000.0          0.00
+              CBA         0    2000.0          0.00
+        -------------------------------------------
+                      12000   12000.0      43002.23
+
+    G-statistic = 43002.23 (p-value = 0.000000, reject if p-value <= 0.0001)
+    Note: a correct solution will fail this test by bad luck 1 time in 10,000.
+
+  * n = 4, trials = 12000
+
+            value  observed  expected   2*O*ln(O/E)
+        -------------------------------------------
+             ABCD     12000     500.0      76273.29
+             ABDC         0     500.0          0.00
+             ACBD         0     500.0          0.00
+             ACDB         0     500.0          0.00
+             ADBC         0     500.0          0.00
+             ADCB         0     500.0          0.00
+             BACD         0     500.0          0.00
+             BADC         0     500.0          0.00
+             BCAD         0     500.0          0.00
+             BCDA         0     500.0          0.00
+             BDAC         0     500.0          0.00
+             BDCA         0     500.0          0.00
+             CABD         0     500.0          0.00
+             CADB         0     500.0          0.00
+             CBAD         0     500.0          0.00
+             CBDA         0     500.0          0.00
+             CDAB         0     500.0          0.00
+             CDBA         0     500.0          0.00
+             DABC         0     500.0          0.00
+             DACB         0     500.0          0.00
+             DBAC         0     500.0          0.00
+             DBCA         0     500.0          0.00
+             DCAB         0     500.0          0.00
+             DCBA         0     500.0          0.00
+        -------------------------------------------
+                      12000   12000.0      76273.29
+
+    G-statistic = 76273.29 (p-value = 0.000000, reject if p-value <= 0.0001)
+    Note: a correct solution will fail this test by bad luck 1 time in 10,000.
+
+  * n = 5, trials = 12000
+
+==> FAILED
+
+Test 15: check randomness of iterator() by enqueueing n items, iterating over those
+         n items, and seeing whether each of the n! permutations is equally likely
+  * n = 2, trials = 12000
+
+            value  observed  expected   2*O*ln(O/E)
+        -------------------------------------------
+               AB     12000    6000.0      16635.53
+               BA         0    6000.0          0.00
+        -------------------------------------------
+                      12000   12000.0      16635.53
+
+    G-statistic = 16635.53 (p-value = 0.000000, reject if p-value <= 0.0001)
+    Note: a correct solution will fail this test by bad luck 1 time in 10,000.
+
+  * n = 3, trials = 12000
+
+            value  observed  expected   2*O*ln(O/E)
+        -------------------------------------------
+              ABC     12000    2000.0      43002.23
+              ACB         0    2000.0          0.00
+              BAC         0    2000.0          0.00
+              BCA         0    2000.0          0.00
+              CAB         0    2000.0          0.00
+              CBA         0    2000.0          0.00
+        -------------------------------------------
+                      12000   12000.0      43002.23
+
+    G-statistic = 43002.23 (p-value = 0.000000, reject if p-value <= 0.0001)
+    Note: a correct solution will fail this test by bad luck 1 time in 10,000.
+
+  * n = 4, trials = 12000
+
+            value  observed  expected   2*O*ln(O/E)
+        -------------------------------------------
+             ABCD     12000     500.0      76273.29
+             ABDC         0     500.0          0.00
+             ACBD         0     500.0          0.00
+             ACDB         0     500.0          0.00
+             ADBC         0     500.0          0.00
+             ADCB         0     500.0          0.00
+             BACD         0     500.0          0.00
+             BADC         0     500.0          0.00
+             BCAD         0     500.0          0.00
+             BCDA         0     500.0          0.00
+             BDAC         0     500.0          0.00
+             BDCA         0     500.0          0.00
+             CABD         0     500.0          0.00
+             CADB         0     500.0          0.00
+             CBAD         0     500.0          0.00
+             CBDA         0     500.0          0.00
+             CDAB         0     500.0          0.00
+             CDBA         0     500.0          0.00
+             DABC         0     500.0          0.00
+             DACB         0     500.0          0.00
+             DBAC         0     500.0          0.00
+             DBCA         0     500.0          0.00
+             DCAB         0     500.0          0.00
+             DCBA         0     500.0          0.00
+        -------------------------------------------
+                      12000   12000.0      76273.29
+
+    G-statistic = 76273.29 (p-value = 0.000000, reject if p-value <= 0.0001)
+    Note: a correct solution will fail this test by bad luck 1 time in 10,000.
+
+  * n = 5, trials = 12000
+
+==> FAILED
+
+Test 16: call enqueue() with a null argument
+==> passed
+
+Test 17: check that remove() and next() throw the specified exceptions in iterator()
+==> passed
+
+Test 18: call iterator() when randomized queue is empty
+==> passed
+
+
+Total: 11/18 tests passed!
+
+
+================================================================
+********************************************************************************
+*  TESTING CORRECTNESS (substituting reference RandomizedQueue and Deque)
+********************************************************************************
+
+Testing correctness of Permutation
+*-----------------------------------------------------------
+Tests 1-5 call the main() function directly, resetting standard input
+before each call.
+
+Running 9 total tests.
+
+Test 1a: check formatting for sample inputs from assignment specification
+  % java Permutation 3 < distinct.txt
+  F
+  E
+  C
+
+  % java Permutation 3 < distinct.txt
+  B
+  G
+  H
+
+  % java Permutation 8 < duplicates.txt
+  CC
+  BB
+  BB
+  BB
+  BB
+  BB
+  BB
+  BB
+
+==> passed
+
+Test 1b: check formatting for other inputs
+  % java Permutation 8 < mediumTale.txt
+  the
+  it
+  it
+  the
+  the
+  the
+  age
+  it
+
+  % java Permutation 0 < distinct.txt
+  [no output]
+
+==> passed
+
+Test 2: check that main() reads all data from standard input
+  * filename = distinct.txt, k = 3
+  * filename = distinct.txt, k = 3
+  * filename = duplicates.txt, k = 8
+  * filename = mediumTale.txt, k = 8
+==> passed
+
+Test 3a: check that main() prints each item from the sequence at most once
+         (for inputs with no duplicate strings)
+  * filename = distinct.txt, k = 3
+    - number of times student prints string "F"   = 2
+    - number of times string "F" appears in input = 1
+    - failed on trial 2 of 1000
+
+  * filename = distinct.txt, k = 1
+  * filename = distinct.txt, k = 9
+    - number of times student prints string "E"   = 3
+    - number of times string "E" appears in input = 1
+    - failed on trial 1 of 1000
+
+  * filename = permutation6.txt, k = 6
+    - number of times student prints string "B"   = 2
+    - number of times string "B" appears in input = 1
+    - failed on trial 1 of 1000
+
+  * filename = permutation10.txt, k = 10
+    - number of times student prints string "D"   = 2
+    - number of times string "D" appears in input = 1
+    - failed on trial 1 of 1000
+
+==> FAILED
+
+Test 3b: check that main() prints each item from the sequence at most once
+         (for inputs with duplicate strings)
+  * filename = duplicates.txt, k = 8
+    - number of times student prints string "BB"   = 6
+    - number of times string "BB" appears in input = 5
+    - failed on trial 1 of 1000
+
+  * filename = duplicates.txt, k = 3
+    - number of times student prints string "AA"   = 2
+    - number of times string "AA" appears in input = 1
+    - failed on trial 11 of 1000
+
+  * filename = permutation8.txt, k = 6
+    - number of times student prints string "D"   = 3
+    - number of times string "D" appears in input = 2
+    - failed on trial 1 of 1000
+
+  * filename = permutation8.txt, k = 2
+    - number of times student prints string "A"   = 2
+    - number of times string "A" appears in input = 1
+    - failed on trial 34 of 1000
+
+  * filename = tinyTale.txt, k = 10
+    - number of times student prints string "was"   = 4
+    - number of times string "was" appears in input = 2
+    - failed on trial 1 of 1000
+
+==> FAILED
+
+Test 3c: check that main() prints each item from the sequence at most once
+         (for inputs with newlines)
+  * filename = mediumTale.txt, k = 10
+    - number of times student prints string "times"   = 3
+    - number of times string "times" appears in input = 2
+    - failed on trial 2 of 1000
+
+  * filename = mediumTale.txt, k = 20
+    - number of times student prints string "of"   = 5
+    - number of times string "of" appears in input = 4
+    - failed on trial 1 of 1000
+
+  * filename = tale.txt, k = 10
+  * filename = tale.txt, k = 50
+==> FAILED
+
+Test 4: check main() when k = 0
+  * filename = distinct.txt, k = 0
+  * filename = distinct.txt, k = 0
+==> passed
+
+Test 5a: check that permutations are uniformly random
+         (for inputs with no duplicate strings)
+  * filename = permutation4.txt, k = 1
+  * filename = permutation4.txt, k = 2
+    - student prints an invalid permutation:
+      D D
+    - failed on trial 1 of 1000
+
+  * filename = permutation4.txt, k = 3
+    - student prints an invalid permutation:
+      B D B
+    - failed on trial 1 of 1000
+
+  * filename = permutation4.txt, k = 4
+    - student prints an invalid permutation:
+      B C A A
+    - failed on trial 1 of 1000
+
+  * filename = permutation6.txt, k = 2
+    - student prints an invalid permutation:
+      D D
+    - failed on trial 2 of 1000
+
+==> FAILED
+
+Test 5b: check that permutations are uniformly random
+         (for inputs with duplicate strings)
+  * filename = permutation5.txt, k = 1
+  * filename = permutation5.txt, k = 2
+
+            value  observed  expected   2*O*ln(O/E)
+        -------------------------------------------
+              A A       351     300.0        110.22
+              A B       246     300.0        -97.64
+              B A       237     300.0       -111.73
+              B B       166     100.0        168.26
+        -------------------------------------------
+                       1000    1000.0         69.11
+
+    G-statistic = 69.11 (p-value = 0.000000, reject if p-value <= 0.0001)
+    Note: a correct solution will fail this test by bad luck 1 time in 10,000.
+
+  * filename = permutation5.txt, k = 3
+    - student prints an invalid permutation:
+      B B B
+    - failed on trial 15 of 1000
+
+  * filename = duplicates.txt, k = 3
+    - student prints an invalid permutation:
+      CC AA AA
+    - failed on trial 12 of 1000
+
+  * filename = permutation8.txt, k = 2
+    - student prints an invalid permutation:
+      B B
+    - failed on trial 27 of 1000
+
+==> FAILED
+
+Total: 4/9 tests passed!
+
+
+================================================================
+********************************************************************************
+*  TIMING (substituting reference RandomizedQueue and Deque)
+********************************************************************************
+
+Timing Permutation
+*-----------------------------------------------------------
+Running 23 total tests.
+
+Test 1: count calls to methods in StdIn
+  * java Permutation 5 < distinct.txt
+  * java Permutation 10 < permutation10.txt
+  * java Permutation 1 < mediumTale.txt
+  * java Permutation 20 < tale.txt
+  * java Permutation 100 < tale.txt
+  * java Permutation 16412 < tale.txt
+==> passed
+
+Test 2: count calls to methods in Deque and RandomizedQueue
+  * java Permutation 5 < distinct.txt
+  * java Permutation 10 < permutation10.txt
+  * java Permutation 1 < mediumTale.txt
+  * java Permutation 20 < tale.txt
+  * java Permutation 100 < tale.txt
+  * java Permutation 16412 < tale.txt
+==> passed
+
+Test 3: count calls to methods in StdRandom
+  * java Permutation 5 < distinct.txt
+  * java Permutation 10 < permutation10.txt
+  * java Permutation 1 < mediumTale.txt
+  * java Permutation 20 < tale.txt
+  * java Permutation 100 < tale.txt
+  * java Permutation 16412 < tale.txt
+==> passed
+
+Test 4: Time main() with k = 5, for inputs containing n random strings
+
+                    n  seconds
+------------------------------
+=> passed        1000     0.00
+=> passed        2000     0.00
+=> passed        4000     0.00
+=> passed        8000     0.01
+=> passed       16000     0.01
+=> passed       32000     0.01
+=> passed       64000     0.02
+=> passed      128000     0.05
+=> passed      256000     0.24
+=> passed      512000     0.25
+==> 10/10 tests passed
+
+
+Test 5: Time main() with k = 1000, for inputs containing n random strings
+
+                    n  seconds
+------------------------------
+=> passed        1000     0.00
+=> passed        2000     0.00
+=> passed        4000     0.00
+=> passed        8000     0.00
+=> passed       16000     0.01
+=> passed       32000     0.01
+=> passed       64000     0.02
+=> passed      128000     0.05
+=> passed      256000     0.09
+=> passed      512000     0.18
+==> 10/10 tests passed
+
+
+Total: 23/23 tests passed!
+
+
+================================================================
+
+
+
+********************************************************************************
+*  MEMORY
+********************************************************************************
+
+Analyzing memory of Permutation
+*-----------------------------------------------------------
+Running 2 total tests.
+
+Test 1: check that only one Deque or RandomizedQueue object is created
+  * filename = distinct.txt, n = 9, k = 1
+  * filename = distinct.txt, n = 9, k = 2
+  * filename = distinct.txt, n = 9, k = 4
+  * filename = tinyTale.txt, n = 12, k = 10
+  * filename = tale.txt, n = 138653, k = 50
+==> passed
+
+Test 2: check that the maximum size of any Deque or RandomizedQueue object
+        created is between k and n
+  * filename = distinct.txt, n = 9, k = 1
+  * filename = distinct.txt, n = 9, k = 2
+  * filename = distinct.txt, n = 9, k = 4
+  * filename = tinyTale.txt, n = 12, k = 10
+  * filename = tale.txt, n = 138653, k = 5
+  * filename = tale.txt, n = 138653, k = 50
+  * filename = tale.txt, n = 138653, k = 500
+  * filename = tale.txt, n = 138653, k = 5000
+  * filename = tale.txt, n = 138653, k = 50000
+==> passed
+
+Test 3 (bonus): check that maximum size of any or Deque or RandomizedQueue object
+                created is equal to k
+  * filename = tale.txt, n = 138653, k = 5
+    - max size of RandomizedQueue object = 138653
+
+  * filename = tale.txt, n = 138653, k = 50
+    - max size of RandomizedQueue object = 138653
+
+  * filename = tale.txt, n = 138653, k = 500
+    - max size of RandomizedQueue object = 138653
+
+  * filename = tale.txt, n = 138653, k = 5000
+    - max size of RandomizedQueue object = 138653
+
+  * filename = tale.txt, n = 138653, k = 50000
+    - max size of RandomizedQueue object = 138653
+
+==> FAILED
+
+Total: 2/2 tests passed!
+
+================================================================
+
+
+
+********************************************************************************
+*  MEMORY
+********************************************************************************
+
+Analyzing memory of Deque
+*-----------------------------------------------------------
+For tests 1-4, the maximum amount of memory allowed for a Deque
+containing n items is 48n + 192.
+
+Running 28 total tests.
+
+Test 1a-1e: Total memory usage after inserting n items,
+            where n is a power of 2.
+
+                 n        bytes
+----------------------------------------------------------
+=> passed        8          352
+=> passed       64         2592
+=> passed      256        10272
+=> passed     1024        40992
+=> passed     4096       163872
+==> 5/5 tests passed
+
+Memory: 40.00 n + 32.00   (R^2 = 1.000)
+
+
+
+Test 2a-2e: Total memory usage after inserting n+1 items,
+            where n is a power of 2.
+
+                 n        bytes
+----------------------------------------------------------
+=> passed        8          392
+=> passed       64         2632
+=> passed      256        10312
+=> passed     1024        41032
+=> passed     4096       163912
+==> 5/5 tests passed
+
+Memory after adding n = 2^i + 1 items: 40.00 n + 32.00   (R^2 = 1.000)
+
+
+
+Test 3a-3e: Total memory usage after inserting 2n+1 items
+            and deleting n items, where n is a power of 2.
+
+                 n        bytes
+----------------------------------------------------------
+=> passed        8          392
+=> passed       64         2632
+=> passed      256        10312
+=> passed     1024        41032
+=> passed     4096       163912
+==> 5/5 tests passed
+
+Memory: 40.00 n + 32.00   (R^2 = 1.000)
+
+
+
+Test 4a-4e: Total memory usage after inserting n items and then
+            deleting all but one item, where n is a power of 2.
+            (should not grow with n or be too large of a constant)
+
+                 n        bytes
+----------------------------------------------------------
+=> passed        8           72
+=> passed       64           72
+=> passed      256           72
+=> passed     1024           72
+=> passed     4096           72
+==> 5/5 tests passed
+
+Memory after adding n = 2^i items: 72.00   (R^2 = 1.000)
+
+
+
+Test 5a-5e: Total memory usage of iterator after inserting n items.
+            (should not grow with n or be too large of a constant)
+
+                 n        bytes
+----------------------------------------------------------
+=> passed        8           32
+=> passed       64           32
+=> passed      256           32
+=> passed     1024           32
+=> passed     4096           32
+==> 5/5 tests passed
+
+Memory of iterator after adding n = 2^i items: 32.00   (R^2 = 1.000)
+
+
+
+Test 6a: Insert n strings; delete them one at a time, checking for
+         loitering after each deletion. The probabilities of addFirst()
+         and addLast() are (p1, p2), respectively. The probabilities of
+         removeFirst() and removeLast() are (q1, q2), respectively
+  * 100 random insertions (1.0, 0.0) and 100 random deletions (1.0, 0.0)
+    - loitering observed during 1 of 100 deletions
+    - maximum number of loitered objects at one time = 1
+  * 100 random insertions (1.0, 0.0) and 100 random deletions (0.0, 1.0)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    MemoryOfDeque.loiterInsertionsBeforeDeletions(MemoryOfDeque.java:458)
+    MemoryOfDeque.test6a(MemoryOfDeque.java:508)
+    MemoryOfDeque.main(MemoryOfDeque.java:746)
+
+  * 100 random insertions (0.0, 1.0) and 100 random deletions (1.0, 0.0)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeFirst(Deque.java:59)
+    MemoryOfDeque.loiterInsertionsBeforeDeletions(MemoryOfDeque.java:457)
+    MemoryOfDeque.test6a(MemoryOfDeque.java:509)
+    MemoryOfDeque.main(MemoryOfDeque.java:746)
+
+  * 100 random insertions (0.0, 1.0) and 100 random deletions (0.0, 1.0)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    MemoryOfDeque.loiterInsertionsBeforeDeletions(MemoryOfDeque.java:458)
+    MemoryOfDeque.test6a(MemoryOfDeque.java:510)
+    MemoryOfDeque.main(MemoryOfDeque.java:746)
+
+  * 100 random insertions (0.5, 0.5) and 100 random deletions (0.5, 0.5)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    MemoryOfDeque.loiterInsertionsBeforeDeletions(MemoryOfDeque.java:458)
+    MemoryOfDeque.test6a(MemoryOfDeque.java:511)
+    MemoryOfDeque.main(MemoryOfDeque.java:746)
+
+==> FAILED
+
+Test 6b: Perform random operations, checking for loitering after
+         each operation. The probabilities of addFirst(), addLast(),
+         removeFirst(), and removeLast() are (p1, p2, p3, p4),
+         respectively.
+  * 100 random operations (0.8, 0.0, 0.2, 0.0)
+    - loitering detected after operation 2 of 100
+    - sequence of operations was:
+         deque.addFirst("SNQJTGUTRX")
+         deque.removeFirst()     ==> SNQJTGUTRX
+    - loitered object(s):
+      SNQJTGUTRX
+
+  * 100 random operations (0.8, 0.0, 0.0, 0.2)
+    java.util.NoSuchElementException: no item to be removed in the deque
+
+    Deque.removeLast(Deque.java:74)
+    MemoryOfDeque.loiter(MemoryOfDeque.java:566)
+    MemoryOfDeque.test6b(MemoryOfDeque.java:627)
+    MemoryOfDeque.main(MemoryOfDeque.java:747)
+
+    - sequence of operations was:
+         deque.addFirst("QVGUPMEGHX")
+         deque.removeLast()      ==> QVGUPMEGHX
+         deque.addFirst("FSHNGTKOMO")
+         deque.addFirst("REVSSZVCNK")
+         deque.addFirst("YVIRLFQGTW")
+         deque.removeLast()      ==> FSHNGTKOMO
+         deque.addFirst("GSKKYYYLZL")
+         deque.removeLast()      ==> GSKKYYYLZL
+         deque.removeLast()
+
+  * 100 random operations (0.0, 0.8, 0.2, 0.0)
+    - loitering detected after operation 10 of 100
+    - sequence of operations was:
+         deque.addLast("DEERDVGXIK")
+         deque.addLast("ZONZPQIKGV")
+         deque.addLast("SLRFAJBKBK")
+         deque.addLast("ONLIHVGNUZ")
+         deque.addLast("XCRHVYUZJH")
+         deque.addLast("DRIMQZAUES")
+         deque.addLast("TIGJMISVDF")
+         deque.addLast("NABATUADVW")
+         deque.addLast("XPQWMHOAMS")
+         deque.removeFirst()     ==> DEERDVGXIK
+    - loitered object(s):
+      DEERDVGXIK
+
+  * 100 random operations (0.0, 0.8, 0.0, 0.2)
+    - loitering detected after operation 7 of 100
+    - sequence of operations was:
+         deque.addLast("NUWNZMFGFG")
+         deque.addLast("GAFPJCCSPY")
+         deque.addLast("SZSDXBPUJT")
+         deque.addLast("KITXHTFMZE")
+         deque.addLast("AJABZICMDZ")
+         deque.addLast("DGIXHSOXRI")
+         deque.removeLast()      ==> NUWNZMFGFG
+    - loitered object(s):
+      NUWNZMFGFG
+
+  * 100 random operations (0.4, 0.4, 0.1, 0.1)
+    - loitering detected after operation 16 of 100
+  * 100 random operations (0.2, 0.2, 0.3, 0.3)
+    - loitering detected after operation 2 of 100
+    - sequence of operations was:
+         deque.addLast("XADRDFUNAJ")
+         deque.removeFirst()     ==> XADRDFUNAJ
+    - loitered object(s):
+      XADRDFUNAJ
+
+==> FAILED
+
+Test 7: Worst-case constant memory allocated or deallocated
+        per deque operation?
+  * 128 random operations
+    - failed on trial 11 of 128
+    - when current size of Deque was 5 objects;
+    - the call to removeLast()
+    - caused a change in memory of -184 bytes
+    - any change of more than 96 bytes fails the test
+  * 256 random operations
+    - failed on trial 3 of 256
+    - when current size of Deque was 3 objects;
+    - the call to removeLast()
+    - caused a change in memory of -144 bytes
+    - any change of more than 96 bytes fails the test
+  * 512 random operations
+    - failed on trial 14 of 512
+    - when current size of Deque was 7 objects;
+    - the call to removeLast()
+    - caused a change in memory of -304 bytes
+    - any change of more than 96 bytes fails the test
+==> FAILED
+
+Total: 25/28 tests passed!
+
+================================================================
+
+
+
+Analyzing memory of RandomizedQueue
+*-----------------------------------------------------------
+For tests 1-5, the maximum amount of memory allowed for
+a RandomizedQueue containing n items is 48n + 192.
+
+Test 1a-1i: Total memory usage after inserting n items
+            when n is a power of 2.
+
+                 n        bytes
+----------------------------------------------------------
+=> passed       32         1312
+=> passed       64         2592
+=> passed      128         5152
+=> passed      256        10272
+=> passed      512        20512
+=> passed     1024        40992
+=> passed     2048        81952
+=> passed     4096       163872
+=> passed     8192       327712
+==> 9/9 tests passed
+
+Memory: 40.00 n + 32.00   (R^2 = 1.000)
+
+
+Test 2a-2i: Total memory usage after inserting n items,
+            when n is one more than a power of 2.
+
+                 n        bytes
+----------------------------------------------------------
+=> passed       33         1352
+=> passed       65         2632
+=> passed      129         5192
+=> passed      257        10312
+=> passed      513        20552
+=> passed     1025        41032
+=> passed     2049        81992
+=> passed     4097       163912
+=> passed     8193       327752
+==> 9/9 tests passed
+
+Memory: 40.00 n + 32.00   (R^2 = 1.000)
+
+
+Test 3a-3i: Total memory usage after inserting 2n-1 items, and then
+            deleting n-1 items, when n is one more than a power of 2.
+
+                 n        bytes
+----------------------------------------------------------
+=> passed       33         1352
+=> passed       65         2632
+=> passed      129         5192
+=> passed      257        10312
+=> passed      513        20552
+=> passed     1025        41032
+=> passed     2049        81992
+=> passed     4097       163912
+=> passed     8193       327752
+==> 9/9 tests passed
+
+Memory: 40.00 n + 32.00   (R^2 = 1.000)
+
+
+Test 4a-4i: Total memory usage after inserting n items, deleting n items,
+            then inserting n times, when n is a power of 2.
+
+                 n        bytes
+----------------------------------------------------------
+=> passed       32         1312
+=> passed       64         2592
+=> passed      128         5152
+=> passed      256        10272
+=> passed      512        20512
+=> passed     1024        40992
+=> passed     2048        81952
+=> passed     4096       163872
+=> passed     8192       327712
+==> 9/9 tests passed
+
+Memory: 40.00 n + 32.00   (R^2 = 1.000)
+
+
+Test 5a-5i: Total memory usage after inserting n items,
+            and then deleting all but one item.
+
+                 n        bytes
+----------------------------------------------------------
+=> passed       32           72
+=> passed       64           72
+=> passed      128           72
+=> passed      256           72
+=> passed      512           72
+=> passed     1024           72
+=> passed     2048           72
+=> passed     4096           72
+=> passed     8192           72
+==> 9/9 tests passed
+
+Memory: 72.00   (R^2 = 1.000)
+
+
+Test 6a-6d: Total memory usage of iterator after inserting n items.
+
+                 n        bytes
+----------------------------------------------------------
+=> passed       32           32
+=> passed       64           32
+=> passed      128           32
+=> passed      256           32
+=> passed      512           32
+=> passed     1024           32
+=> passed     2048           32
+=> passed     4096           32
+
+...
+
+WARNING: the grading output was truncated due to excessive length.
+Typically, this is because you have a method that has an unanticipated side effect
+(such as printing to standard output or throwing an exception). A large amount of output
+can also arise from failing many tests.
+
