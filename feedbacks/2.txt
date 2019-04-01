@@ -1,0 +1,119 @@
+See the Assessment Guide for information on how to interpret this report.
+
+ASSESSMENT SUMMARY
+
+Compilation:  PASSED
+API:          PASSED
+
+Spotbugs:     FAILED (1 warning)
+PMD:          FAILED (2 warnings)
+Checkstyle:   FAILED (2 errors, 15 warnings)
+
+Correctness:  No tests available for autograding.
+Memory:       No tests available for autograding.
+Timing:       No tests available for autograding.
+
+Aggregate score: 10.00%
+[Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
+
+ASSESSMENT DETAILS
+
+The following files were submitted:
+----------------------------------
+2.4K Apr  1 08:27 Deque.java
+ 506 Apr  1 08:27 Permutation.java
+2.4K Apr  1 08:27 RandomizedQueue.java
+
+
+********************************************************************************
+*  COMPILING
+********************************************************************************
+
+
+% javac Deque.java
+*-----------------------------------------------------------
+
+% javac RandomizedQueue.java
+*-----------------------------------------------------------
+
+% javac Permutation.java
+*-----------------------------------------------------------
+
+
+================================================================
+
+
+Checking the APIs of your programs.
+*-----------------------------------------------------------
+Deque:
+
+RandomizedQueue:
+
+Permutation:
+
+================================================================
+
+
+********************************************************************************
+*  CHECKING STYLE AND COMMON BUG PATTERNS
+********************************************************************************
+
+
+% spotbugs *.class
+*-----------------------------------------------------------
+H C NP_NULL_ON_SOME_PATH NP: Dereferences the variable 'oldFirst', but its value might be null on some execution branch.  Dereferenced at Deque.java:[line 69]
+Warnings generated: 1
+
+
+================================================================
+
+
+% pmd .
+*-----------------------------------------------------------
+Deque.java:98: Unnecessary use of fully qualified name 'java.util.NoSuchElementException' due to existing import 'java.util.NoSuchElementException'. [UnnecessaryFullyQualifiedName]
+RandomizedQueue.java:83: Unnecessary use of fully qualified name 'java.util.Iterator' due to existing import 'java.util.Iterator'. [UnnecessaryFullyQualifiedName]
+PMD ends with 2 warnings.
+
+
+================================================================
+
+
+% checkstyle *.java
+*-----------------------------------------------------------
+[WARN] Deque.java:2:8: Unused import statement for 'edu.princeton.cs.algs4.StdIn'. [UnusedImports]
+[WARN] Deque.java:4:1: Unnecessary import statement for 'java.lang.IllegalArgumentException' because it is from the package 'java.lang'. [RedundantImport]
+[WARN] Deque.java:4:8: Unused import statement for 'java.lang.IllegalArgumentException'. [UnusedImports]
+[WARN] Deque.java:8:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
+[WARN] Deque.java:36:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] Deque.java:51:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] Deque.java:67:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] Deque.java:82:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] Permutation.java:5:29: '(' is preceded with whitespace. [MethodParamPad]
+[WARN] Permutation.java:9:12: 'for' is not followed by whitespace. [WhitespaceAfter]
+[WARN] RandomizedQueue.java:6:1: File contains tab characters (this is the first occurrence). Configure your editor to replace tabs with spaces. [FileTabCharacter]
+[WARN] RandomizedQueue.java:18:14: 'while' is not followed by whitespace. [WhitespaceAfter]
+[WARN] RandomizedQueue.java:32:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] RandomizedQueue.java:56:26: Inner assignments should be avoided. [InnerAssignment]
+[WARN] RandomizedQueue.java:73:14: 'while' is not followed by whitespace. [WhitespaceAfter]
+Checkstyle ends with 0 errors and 15 warnings.
+
+% custom checkstyle checks for Deque.java
+*-----------------------------------------------------------
+[INFO] Deque.java:22: Using a loop in this method might be a performance bug. [Performance]
+
+% custom checkstyle checks for RandomizedQueue.java
+*-----------------------------------------------------------
+[INFO] RandomizedQueue.java:18: Using a loop in this method might be a performance bug. [Performance]
+[INFO] RandomizedQueue.java:73: Using a loop in this method might be a performance bug. [Performance]
+
+% custom checkstyle checks for Permutation.java
+*-----------------------------------------------------------
+[ERROR] Permutation.java:7: Do not declare arrays in this program. [Performance]
+[ERROR] Permutation.java:7:30: Do not call 'StdIn.readAllStrings()' in this program. Use only 'StdIn.readString()'. [IllegalMethodCall]
+Checkstyle ends with 2 errors and 0 warnings.
+
+
+================================================================
+
+
+ABORTING: you must fix any Checkstyle errors (not warnings).
