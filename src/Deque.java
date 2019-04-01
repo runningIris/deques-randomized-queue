@@ -19,10 +19,12 @@ public class Deque<Item> implements Iterable<Item> {
     public int size() {
         int len = 0;
         Node current = first;
+
         while (current != null) {
             len++;
             current = current.next;
         }
+
         return len;
     }
 
@@ -55,6 +57,7 @@ public class Deque<Item> implements Iterable<Item> {
             last = node;
         } else {
             last.next = node;
+            last = node;
         }
     }
 
@@ -101,13 +104,25 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
-        Deque<String> k = new Deque<String>();
-        k.addFirst("hha");
-        k.addFirst("haha");
-        k.addFirst("heihei");
-        k.addLast("heiha");
-        Iterator<String> iterator = k.iterator();
-        StdOut.println(iterator.next());
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addLast(1);
+        deque.addFirst(2);
+        deque.addFirst(3);
+        deque.addLast(4);
+        deque.addFirst(5);
+        deque.addLast(6);
+        deque.addFirst(7);
+        deque.addLast(8);
+        deque.addFirst(9);
+        deque.addFirst(10);
+        deque.addFirst(11);
+        deque.addLast(12);
+        deque.addFirst(13);
+        deque.addFirst(14);
+        deque.addFirst(15);
+        deque.addFirst(16);
+        deque.addLast(17);
+        deque.size();
     }
 }
 

@@ -16,3 +16,5 @@
     (1694 lines of feedback... 我要先去死一死了...)
 
 - [x] fix some checkstyle problems, 65/100 [feedbacks/4.txt](https://github.com/runningIris/deques-randomized-queue/blob/master/feedbacks/4.txt)
+- [x] fix the `addLast` method in Deque, 71/100 [feedbacks/5.txt](https://github.com/runningIris/deques-randomized-queue/blob/master/feedbacks/5.txt)
+
