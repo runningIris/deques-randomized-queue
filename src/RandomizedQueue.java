@@ -102,8 +102,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new NoSuchElementException("no more items to return in the sample() method.");
         }
 
-        int len = size();
-
         if (len == 1) {
             Item item = first.item;
             return item;

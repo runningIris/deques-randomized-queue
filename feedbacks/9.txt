@@ -7,7 +7,7 @@ API:          PASSED
 
 Spotbugs:     PASSED
 PMD:          PASSED
-Checkstyle:   FAILED (0 errors, 1 warning)
+Checkstyle:   PASSED
 
 Correctness:  35/43 tests passed
 Memory:       30/30 tests passed
@@ -20,13 +20,13 @@ ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-2.9K Apr  2 09:00 Deque.java
- 451 Apr  2 09:00 Permutation.java
-3.8K Apr  2 09:00 RandomizedQueue.java
+2.9K Apr  2 09:09 Deque.java
+ 451 Apr  2 09:09 Permutation.java
+3.8K Apr  2 09:09 RandomizedQueue.java
 
 
 ********************************************************************************
-*  COMPILING                                                                    
+*  COMPILING
 ********************************************************************************
 
 
@@ -55,7 +55,7 @@ Permutation:
 
 
 ********************************************************************************
-*  CHECKING STYLE AND COMMON BUG PATTERNS                                       
+*  CHECKING STYLE AND COMMON BUG PATTERNS
 ********************************************************************************
 
 
@@ -75,15 +75,13 @@ Permutation:
 
 % checkstyle *.java
 *-----------------------------------------------------------
-[WARN] RandomizedQueue.java:105:13: The local (or parameter) variable 'len' has the same name as an instance variable. Use a different name. [HiddenField]
-Checkstyle ends with 0 errors and 1 warning.
 
 % custom checkstyle checks for Deque.java
 *-----------------------------------------------------------
 
 % custom checkstyle checks for RandomizedQueue.java
 *-----------------------------------------------------------
-[INFO] RandomizedQueue.java:122: Using a loop in this method might be a performance bug. [Performance]
+[INFO] RandomizedQueue.java:120: Using a loop in this method might be a performance bug. [Performance]
 
 % custom checkstyle checks for Permutation.java
 *-----------------------------------------------------------
@@ -343,7 +341,7 @@ Test 15: check randomness of iterator() by enqueueing n items, iterating over th
                BA         0    6000.0          0.00
         -------------------------------------------
                       12000   12000.0      16635.53
-    
+
     G-statistic = 16635.53 (p-value = 0.000000, reject if p-value <= 0.0001)
     Note: a correct solution will fail this test by bad luck 1 time in 10,000.
 
@@ -359,7 +357,7 @@ Test 15: check randomness of iterator() by enqueueing n items, iterating over th
               CBA         0    2000.0          0.00
         -------------------------------------------
                       12000   12000.0      43002.23
-    
+
     G-statistic = 43002.23 (p-value = 0.000000, reject if p-value <= 0.0001)
     Note: a correct solution will fail this test by bad luck 1 time in 10,000.
 
@@ -393,7 +391,7 @@ Test 15: check randomness of iterator() by enqueueing n items, iterating over th
              DCBA         0     500.0          0.00
         -------------------------------------------
                       12000   12000.0      76273.29
-    
+
     G-statistic = 76273.29 (p-value = 0.000000, reject if p-value <= 0.0001)
     Note: a correct solution will fail this test by bad luck 1 time in 10,000.
 
@@ -428,21 +426,21 @@ Running 9 total tests.
 
 Test 1a: check formatting for sample inputs from assignment specification
   % java Permutation 3 < distinct.txt
-  E
+  F
   I
-  H
+  F
 
   % java Permutation 3 < distinct.txt
-  C
-  B
-  D
+  E
+  E
+  H
 
   % java Permutation 8 < duplicates.txt
-  CC
-  CC
+  AA
+  BB
+  BB
   BB
   CC
-  BB
   BB
   BB
   BB
@@ -451,14 +449,14 @@ Test 1a: check formatting for sample inputs from assignment specification
 
 Test 1b: check formatting for other inputs
   % java Permutation 8 < mediumTale.txt
-  times
-  the
-  of
-  of
+  age
+  was
+  best
   it
   of
-  worst
-  the
+  age
+  of
+  best
 
   % java Permutation 0 < distinct.txt
   [no output]
@@ -475,24 +473,24 @@ Test 2: check that main() reads all data from standard input
 Test 3a: check that main() prints each item from the sequence at most once
          (for inputs with no duplicate strings)
   * filename = distinct.txt, k = 3
-    - number of times student prints string "E"   = 2
-    - number of times string "E" appears in input = 1
-    - failed on trial 2 of 1000
+    - number of times student prints string "G"   = 2
+    - number of times string "G" appears in input = 1
+    - failed on trial 1 of 1000
 
   * filename = distinct.txt, k = 1
   * filename = distinct.txt, k = 9
-    - number of times student prints string "C"   = 4
-    - number of times string "C" appears in input = 1
+    - number of times student prints string "F"   = 3
+    - number of times string "F" appears in input = 1
     - failed on trial 1 of 1000
 
   * filename = permutation6.txt, k = 6
-    - number of times student prints string "A"   = 4
-    - number of times string "A" appears in input = 1
+    - number of times student prints string "D"   = 2
+    - number of times string "D" appears in input = 1
     - failed on trial 1 of 1000
 
   * filename = permutation10.txt, k = 10
-    - number of times student prints string "D"   = 3
-    - number of times string "D" appears in input = 1
+    - number of times student prints string "B"   = 2
+    - number of times string "B" appears in input = 1
     - failed on trial 1 of 1000
 
 ==> FAILED
@@ -500,38 +498,38 @@ Test 3a: check that main() prints each item from the sequence at most once
 Test 3b: check that main() prints each item from the sequence at most once
          (for inputs with duplicate strings)
   * filename = duplicates.txt, k = 8
-    - number of times student prints string "BB"   = 6
+    - number of times student prints string "BB"   = 7
     - number of times string "BB" appears in input = 5
     - failed on trial 1 of 1000
 
   * filename = duplicates.txt, k = 3
-    - number of times student prints string "CC"   = 3
-    - number of times string "CC" appears in input = 2
-    - failed on trial 61 of 1000
+    - number of times student prints string "AA"   = 2
+    - number of times string "AA" appears in input = 1
+    - failed on trial 14 of 1000
 
   * filename = permutation8.txt, k = 6
-    - number of times student prints string "A"   = 2
-    - number of times string "A" appears in input = 1
-    - failed on trial 1 of 1000
+    - number of times student prints string "D"   = 3
+    - number of times string "D" appears in input = 2
+    - failed on trial 5 of 1000
 
   * filename = permutation8.txt, k = 2
-    - number of times student prints string "A"   = 2
-    - number of times string "A" appears in input = 1
-    - failed on trial 21 of 1000
+    - number of times student prints string "B"   = 2
+    - number of times string "B" appears in input = 1
+    - failed on trial 29 of 1000
 
   * filename = tinyTale.txt, k = 10
-    - number of times student prints string "the"   = 4
-    - number of times string "the" appears in input = 2
-    - failed on trial 2 of 1000
+    - number of times student prints string "was"   = 3
+    - number of times string "was" appears in input = 2
+    - failed on trial 1 of 1000
 
 ==> FAILED
 
 Test 3c: check that main() prints each item from the sequence at most once
          (for inputs with newlines)
   * filename = mediumTale.txt, k = 10
-    - number of times student prints string "foolishness"   = 2
-    - number of times string "foolishness" appears in input = 1
-    - failed on trial 3 of 1000
+    - number of times student prints string "best"   = 2
+    - number of times string "best" appears in input = 1
+    - failed on trial 1 of 1000
 
   * filename = mediumTale.txt, k = 20
     - number of times student prints string "best"   = 2
@@ -553,22 +551,22 @@ Test 5a: check that permutations are uniformly random
   * filename = permutation4.txt, k = 2
     - student prints an invalid permutation:
       B B
-    - failed on trial 1 of 1000
+    - failed on trial 2 of 1000
 
   * filename = permutation4.txt, k = 3
     - student prints an invalid permutation:
-      C C C
-    - failed on trial 1 of 1000
+      B D B
+    - failed on trial 2 of 1000
 
   * filename = permutation4.txt, k = 4
     - student prints an invalid permutation:
-      D D B D
+      C D B B
     - failed on trial 1 of 1000
 
   * filename = permutation6.txt, k = 2
     - student prints an invalid permutation:
-      A A
-    - failed on trial 1 of 1000
+      D D
+    - failed on trial 4 of 1000
 
 ==> FAILED
 
@@ -579,30 +577,30 @@ Test 5b: check that permutations are uniformly random
 
             value  observed  expected   2*O*ln(O/E)
         -------------------------------------------
-              A A       351     300.0        110.22
-              A B       249     300.0        -92.79
-              B A       215     300.0       -143.25
-              B B       185     100.0        227.62
+              A A       378     300.0        174.72
+              A B       225     300.0       -129.46
+              B A       241     300.0       -105.55
+              B B       156     100.0        138.74
         -------------------------------------------
-                       1000    1000.0        101.79
-    
-    G-statistic = 101.79 (p-value = 0.000000, reject if p-value <= 0.0001)
+                       1000    1000.0         78.45
+
+    G-statistic = 78.45 (p-value = 0.000000, reject if p-value <= 0.0001)
     Note: a correct solution will fail this test by bad luck 1 time in 10,000.
 
   * filename = permutation5.txt, k = 3
     - student prints an invalid permutation:
       B B B
-    - failed on trial 10 of 1000
+    - failed on trial 32 of 1000
 
   * filename = duplicates.txt, k = 3
     - student prints an invalid permutation:
-      AA CC AA
-    - failed on trial 4 of 1000
+      AA AA CC
+    - failed on trial 17 of 1000
 
   * filename = permutation8.txt, k = 2
     - student prints an invalid permutation:
-      A A
-    - failed on trial 11 of 1000
+      B B
+    - failed on trial 35 of 1000
 
 ==> FAILED
 
@@ -650,15 +648,15 @@ Test 4: Time main() with k = 5, for inputs containing n random strings
                     n  seconds
 ------------------------------
 => passed        1000     0.00
-=> passed        2000     0.00
+=> passed        2000     0.01
 => passed        4000     0.00
 => passed        8000     0.01
 => passed       16000     0.01
 => passed       32000     0.01
-=> passed       64000     0.02
+=> passed       64000     0.03
 => passed      128000     0.05
-=> passed      256000     0.23
-=> passed      512000     0.24
+=> passed      256000     0.26
+=> passed      512000     0.26
 ==> 10/10 tests passed
 
 
@@ -756,11 +754,11 @@ Test 1a-1e: Total memory usage after inserting n items,
 
                  n        bytes
 ----------------------------------------------------------
-=> passed        8          424         
-=> passed       64         3112         
-=> passed      256        12328         
-=> passed     1024        49192         
-=> passed     4096       196648         
+=> passed        8          424
+=> passed       64         3112
+=> passed      256        12328
+=> passed     1024        49192
+=> passed     4096       196648
 ==> 5/5 tests passed
 
 Memory: 48.00 n + 40.00   (R^2 = 1.000)
@@ -772,11 +770,11 @@ Test 2a-2e: Total memory usage after inserting n+1 items,
 
                  n        bytes
 ----------------------------------------------------------
-=> passed        8          472         
-=> passed       64         3160         
-=> passed      256        12376         
-=> passed     1024        49240         
-=> passed     4096       196696         
+=> passed        8          472
+=> passed       64         3160
+=> passed      256        12376
+=> passed     1024        49240
+=> passed     4096       196696
 ==> 5/5 tests passed
 
 Memory after adding n = 2^i + 1 items: 48.00 n + 40.00   (R^2 = 1.000)
@@ -788,11 +786,11 @@ Test 3a-3e: Total memory usage after inserting 2n+1 items
 
                  n        bytes
 ----------------------------------------------------------
-=> passed        8          472         
-=> passed       64         3160         
-=> passed      256        12376         
-=> passed     1024        49240         
-=> passed     4096       196696         
+=> passed        8          472
+=> passed       64         3160
+=> passed      256        12376
+=> passed     1024        49240
+=> passed     4096       196696
 ==> 5/5 tests passed
 
 Memory: 48.00 n + 40.00   (R^2 = 1.000)
@@ -805,11 +803,11 @@ Test 4a-4e: Total memory usage after inserting n items and then
 
                  n        bytes
 ----------------------------------------------------------
-=> passed        8           88         
-=> passed       64           88         
-=> passed      256           88         
-=> passed     1024           88         
-=> passed     4096           88         
+=> passed        8           88
+=> passed       64           88
+=> passed      256           88
+=> passed     1024           88
+=> passed     4096           88
 ==> 5/5 tests passed
 
 Memory after adding n = 2^i items: 88.00   (R^2 = 1.000)
@@ -821,11 +819,11 @@ Test 5a-5e: Total memory usage of iterator after inserting n items.
 
                  n        bytes
 ----------------------------------------------------------
-=> passed        8           32         
-=> passed       64           32         
-=> passed      256           32         
-=> passed     1024           32         
-=> passed     4096           32         
+=> passed        8           32
+=> passed       64           32
+=> passed      256           32
+=> passed     1024           32
+=> passed     4096           32
 ==> 5/5 tests passed
 
 Memory of iterator after adding n = 2^i items: 32.00   (R^2 = 1.000)
@@ -878,15 +876,15 @@ Test 1a-1i: Total memory usage after inserting n items
 
                  n        bytes
 ----------------------------------------------------------
-=> passed       32         1576         
-=> passed       64         3112         
-=> passed      128         6184         
-=> passed      256        12328         
-=> passed      512        24616         
-=> passed     1024        49192         
-=> passed     2048        98344         
-=> passed     4096       196648         
-=> passed     8192       393256         
+=> passed       32         1576
+=> passed       64         3112
+=> passed      128         6184
+=> passed      256        12328
+=> passed      512        24616
+=> passed     1024        49192
+=> passed     2048        98344
+=> passed     4096       196648
+=> passed     8192       393256
 ==> 9/9 tests passed
 
 Memory: 48.00 n + 40.00   (R^2 = 1.000)
@@ -897,15 +895,15 @@ Test 2a-2i: Total memory usage after inserting n items,
 
                  n        bytes
 ----------------------------------------------------------
-=> passed       33         1624         
-=> passed       65         3160         
-=> passed      129         6232         
-=> passed      257        12376         
-=> passed      513        24664         
-=> passed     1025        49240         
-=> passed     2049        98392         
-=> passed     4097       196696         
-=> passed     8193       393304         
+=> passed       33         1624
+=> passed       65         3160
+=> passed      129         6232
+=> passed      257        12376
+=> passed      513        24664
+=> passed     1025        49240
+=> passed     2049        98392
+=> passed     4097       196696
+=> passed     8193       393304
 ==> 9/9 tests passed
 
 Memory: 48.00 n + 40.00   (R^2 = 1.000)
@@ -916,15 +914,15 @@ Test 3a-3i: Total memory usage after inserting 2n-1 items, and then
 
                  n        bytes
 ----------------------------------------------------------
-=> passed       33         1624         
-=> passed       65         3160         
-=> passed      129         6232         
-=> passed      257        12376         
-=> passed      513        24664         
-=> passed     1025        49240         
-=> passed     2049        98392         
-=> passed     4097       196696         
-=> passed     8193       393304         
+=> passed       33         1624
+=> passed       65         3160
+=> passed      129         6232
+=> passed      257        12376
+=> passed      513        24664
+=> passed     1025        49240
+=> passed     2049        98392
+=> passed     4097       196696
+=> passed     8193       393304
 ==> 9/9 tests passed
 
 Memory: 48.00 n + 40.00   (R^2 = 1.000)
@@ -935,15 +933,15 @@ Test 4a-4i: Total memory usage after inserting n items, deleting n items,
 
                  n        bytes
 ----------------------------------------------------------
-=> passed       32         1576         
-=> passed       64         3112         
-=> passed      128         6184         
-=> passed      256        12328         
-=> passed      512        24616         
-=> passed     1024        49192         
-=> passed     2048        98344         
-=> passed     4096       196648         
-=> passed     8192       393256         
+=> passed       32         1576
+=> passed       64         3112
+=> passed      128         6184
+=> passed      256        12328
+=> passed      512        24616
+=> passed     1024        49192
+=> passed     2048        98344
+=> passed     4096       196648
+=> passed     8192       393256
 ==> 9/9 tests passed
 
 Memory: 48.00 n + 40.00   (R^2 = 1.000)
@@ -954,15 +952,15 @@ Test 5a-5i: Total memory usage after inserting n items,
 
                  n        bytes
 ----------------------------------------------------------
-=> passed       32           88         
-=> passed       64           88         
-=> passed      128           88         
-=> passed      256           88         
-=> passed      512           88         
-=> passed     1024           88         
-=> passed     2048           88         
-=> passed     4096           88         
-=> passed     8192           88         
+=> passed       32           88
+=> passed       64           88
+=> passed      128           88
+=> passed      256           88
+=> passed      512           88
+=> passed     1024           88
+=> passed     2048           88
+=> passed     4096           88
+=> passed     8192           88
 ==> 9/9 tests passed
 
 Memory: 88.00   (R^2 = 1.000)
@@ -972,15 +970,15 @@ Test 6a-6d: Total memory usage of iterator after inserting n items.
 
                  n        bytes
 ----------------------------------------------------------
-=> passed       32           32         
-=> passed       64           32         
-=> passed      128           32         
-=> passed      256           32         
-=> passed      512           32         
-=> passed     1024           32         
-=> passed     2048           32         
-=> passed     4096           32         
-=> passed     8192           32         
+=> passed       32           32
+=> passed       64           32
+=> passed      128           32
+=> passed      256           32
+=> passed      512           32
+=> passed     1024           32
+=> passed     2048           32
+=> passed     4096           32
+=> passed     8192           32
 ==> 9/9 tests passed
 
 Memory: 32.00   (R^2 = 1.000)
@@ -1032,12 +1030,12 @@ Test 1a-1k: make n calls to addFirst() followed by n calls to removeFirst()
 => passed        4096     0.00
 => passed        8192     0.00
 => passed       16384     0.00
-=> passed       32768     0.00
+=> passed       32768     0.01
 => passed       65536     0.01
 => passed      128000     0.01
-=> passed      256000     0.02
-=> passed      512000     0.04
-=> passed     1024000     0.08
+=> passed      256000     0.03
+=> passed      512000     0.06
+=> passed     1024000     0.12
 ==> 11/11 tests passed
 
 
@@ -1051,10 +1049,10 @@ Test 2a-2k: make n calls to addLast() followed by n calls to removeLast()
 => passed       16384     0.00
 => passed       32768     0.00
 => passed       65536     0.01
-=> passed      128000     0.01
-=> passed      256000     0.02
+=> passed      128000     0.02
+=> passed      256000     0.03
 => passed      512000     0.01
-=> passed     1024000     0.01
+=> passed     1024000     0.02
 ==> 11/11 tests passed
 
 
@@ -1071,7 +1069,7 @@ Test 3a-3k: make n calls to addFirst() followed by n calls to removeLast()
 => passed      128000     0.00
 => passed      256000     0.00
 => passed      512000     0.01
-=> passed     1024000     0.01
+=> passed     1024000     0.02
 ==> 11/11 tests passed
 
 
@@ -1088,7 +1086,7 @@ Test 4a-4k: make n calls to addLast() followed by n calls to removeFirst()
 => passed      128000     0.00
 => passed      256000     0.00
 => passed      512000     0.01
-=> passed     1024000     0.08
+=> passed     1024000     0.12
 ==> 11/11 tests passed
 
 
@@ -1102,7 +1100,7 @@ Test 5a-5g: make n random calls to addFirst(), removeFirst(), isEmpty(), and siz
 => passed        4096     0.00
 => passed        8192     0.00
 => passed       16384     0.00
-=> passed       32768     0.00
+=> passed       32768     0.01
 => passed       65536     0.01
 => passed      128000     0.01
 => passed      256000     0.02
@@ -1144,7 +1142,7 @@ Test 7a-7g: make n random calls to addFirst(), addLast(), removeFirst(), removeL
 => passed       16384     0.00
 => passed       32768     0.00
 => passed       65536     0.00
-=> passed      128000     0.01
+=> passed      128000     0.00
 => passed      256000     0.01
 => passed      512000     0.02
 => passed     1024000     0.04
@@ -1168,7 +1166,7 @@ Test 8a-8g: make n calls to addFirst(); iterate over the n items by calling
 => passed      256000     0.00
 => passed      512000     0.01
 => passed     1024000     0.01
-=> passed     2048000     0.07
+=> passed     2048000     0.08
 ==> 12/12 tests passed
 
 
@@ -1230,8 +1228,8 @@ Test 4a-k: make n calls to enqueue() followed by n calls to dequeue()
 => passed        2048     0.00
 => passed        4096     0.01
 => passed        8192     0.06
-=> passed       16384     0.28
-=> FAILED       32768     1.17
+=> passed       16384     0.27
+=> FAILED       32768     1.15
    [ Most likely one of your operations is not constant time. ]
 
 ==> 5/11 tests passed
@@ -1249,7 +1247,7 @@ Test 5a-k: make n calls to enqueue() followed by n random calls to
 => passed        8192     0.04
 => passed       16384     0.15
 => passed       32768     0.60
-=> FAILED       65536     2.51
+=> FAILED       65536     2.46
    [ Most likely one of your operations is not constant time. ]
 
 ==> 6/11 tests passed
@@ -1263,11 +1261,11 @@ Test 6a-k: make n calls to enqueue() followed by n random calls to
 ----------------------------------
 => passed        1024     0.00
 => passed        2048     0.00
-=> passed        4096     0.01
+=> passed        4096     0.00
 => passed        8192     0.02
-=> passed       16384     0.09
+=> passed       16384     0.08
 => passed       32768     0.34
-=> FAILED       65536     1.36
+=> FAILED       65536     1.39
    [ Most likely one of your operations is not constant time. ]
 
 ==> 6/11 tests passed
@@ -1282,10 +1280,10 @@ Test 7a-k: make n calls to enqueue() followed by n random calls to
 => passed        1024     0.00
 => passed        2048     0.00
 => passed        4096     0.01
-=> passed        8192     0.06
+=> passed        8192     0.05
 => passed       16384     0.23
-=> passed       32768     0.94
-=> FAILED       65536     3.87
+=> passed       32768     0.96
+=> FAILED       65536     3.96
    [ Most likely one of your operations is not constant time. ]
 
 ==> 6/11 tests passed
@@ -1317,9 +1315,9 @@ Test 9a-i: make n calls to enqueue(); then call dequeue() twice,
 ----------------------------------
 => passed        1025     0.01
 => passed        2049     0.03
-=> passed        4097     0.13
-=> passed        8193     0.66
-=> FAILED       16385     2.80
+=> passed        4097     0.14
+=> passed        8193     0.67
+=> FAILED       16385     2.82
    [ Most likely one of your operations is not constant time. ]
 
 ==> 4/9 tests passed
@@ -1329,6 +1327,4 @@ Total: 41/67 tests passed!
 
 
 ================================================================
-
-
 
