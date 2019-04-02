@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
+
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
@@ -36,6 +37,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             first = newNode;
             last = newNode;
         } else {
+
+            if (first.next == null) {
+                first.next = newNode;
+            }
+
             last.next = newNode;
             last = newNode;
         }
@@ -45,9 +51,38 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException("no more items to return in the dequeue() method.");
         }
-        Node oldFirst = first;
-        first = first.next;
-        return oldFirst.item;
+
+        int len = size();
+
+        if (len == 1) {
+            Item item = first.item;
+            first = null;
+            last = null;
+            return item;
+        }
+
+        int random = StdRandom.uniform(len);
+
+        if (random == 0) {
+            Item item = first.item;
+            first = first.next;
+            return item;
+        }
+
+        int i = 0;
+
+        Node prev = new Node();
+        prev.next = first;
+
+        while (i < random) {
+            i++;
+            prev = prev.next;
+        }
+
+        Item item = prev.next.item;
+        prev.next = prev.next.next;
+
+        return item;
     }
 
     public Item sample() {
@@ -104,14 +139,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
-        RandomizedQueue<String> r = new RandomizedQueue<>();
-        r.enqueue("hello");
-        r.enqueue("kkk");
-        r.enqueue("iii");
-        r.enqueue("world");
-        StdOut.println(r.sample());
-        StdOut.println(r.sample());
-        StdOut.println(r.sample());
-        StdOut.println(r.sample());
+        RandomizedQueue<Double> r = new RandomizedQueue<Double>();
+        r.enqueue(0.7);
+        r.enqueue(0.1);
+        StdOut.println("de: " + r.dequeue());
+        r.enqueue(0.2);
+        StdOut.println("de: " + r.dequeue());
+        r.enqueue(0.3);
+        StdOut.println("de: " + r.dequeue());
+        StdOut.println("de: " + r.dequeue());
     }
 }
