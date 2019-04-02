@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
+
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
@@ -9,6 +10,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private class Node {
         Item item;
         Node next;
+        Node prev;
     }
 
     public boolean isEmpty() {
@@ -33,9 +35,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         newNode.item = item;
 
         if (isEmpty()) {
+            newNode.next = null;
+            newNode.prev = null;
+
             first = newNode;
-            last = newNode;
+            last = first;
         } else {
+            newNode.prev = last;
             last.next = newNode;
             last = newNode;
         }
@@ -45,11 +51,54 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException("no more items to return in the dequeue() method.");
         }
-        Node oldFirst = first;
-        first = first.next;
-        return oldFirst.item;
+
+        int len = size();
+
+        if (len == 1) {
+            Item item = first.item;
+            first = null;
+            last = null;
+
+            return item;
+        }
+
+        int random = StdRandom.uniform(len);
+
+        if (random == 0) {
+            Item item = first.item;
+            first = first.next;
+            first.prev = null;
+            return item;
+        }
+
+        if (random == len - 1) {
+            Item item = last.item;
+            last = last.prev;
+            last.next = null;
+            return item;
+        }
+
+        int i = 0;
+
+        Node current = first;
+
+        while (i < random) {
+            i++;
+            current = current.next;
+        }
+
+        Item item = current.item;
+
+        Node prev = current.prev;
+        Node next = current.next;
+
+        prev.next = next;
+        next.prev = prev;
+
+        return item;
     }
 
+    // To be optimized: binary search
     public Item sample() {
         if (isEmpty()) {
             throw new NoSuchElementException("no more items to return in the sample() method.");
@@ -58,7 +107,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         int len = size();
 
         if (len == 1) {
-            return first.item;
+            Item item = first.item;
+            return item;
         }
 
         int random = StdRandom.uniform(len);
@@ -86,6 +136,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private class RandomizedQueueIterator implements Iterator<Item> {
         private Node current = first;
 
+        public void RandomizedQueueIterator() {
+
+        }
+
         public boolean hasNext() {
             return current != null;
         }
@@ -105,13 +159,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public static void main(String[] args) {
         RandomizedQueue<String> r = new RandomizedQueue<>();
+        StdOut.println(r.size());
         r.enqueue("hello");
         r.enqueue("kkk");
+        StdOut.println(r.size());
         r.enqueue("iii");
         r.enqueue("world");
         StdOut.println(r.sample());
-        StdOut.println(r.sample());
-        StdOut.println(r.sample());
-        StdOut.println(r.sample());
+        StdOut.println(r.dequeue());
+        StdOut.println(r.dequeue());
+        StdOut.println(r.size());
+        StdOut.println(r.dequeue());
+        StdOut.println(r.dequeue());
+        StdOut.println(r.size());
     }
 }
