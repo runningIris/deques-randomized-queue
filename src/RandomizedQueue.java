@@ -5,42 +5,53 @@ import java.util.NoSuchElementException;
 import java.util.Iterator;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
-    private Node first, last;
+
     private int len = 0;
 
-    private class Node {
-        Item item;
-        Node next;
-        Node prev;
+    private Item[] queue;
+
+    public RandomizedQueue() {
+        queue = (Item[]) new Object[1];
     }
 
     public boolean isEmpty() {
-        return first == null;
+        return len == 0;
     }
 
     public int size() {
         return len;
     }
 
+    private void resize() {
+        Item[] newQueue = null;
+        if (queue.length == len) {
+            // double the size
+            newQueue = (Item[]) new Object[queue.length * 2];
+
+        }
+
+        if (queue.length > len * 2) {
+            // cut half the size
+            newQueue = (Item[]) new Object[queue.length / 2];
+        }
+
+        if (newQueue != null) {
+            for (int i = 0; i < len; i++) {
+                newQueue[i] = queue[i];
+            }
+
+            queue = newQueue;
+        }
+
+    }
+
     public void enqueue(Item item) {
         if (item == null) {
             throw new IllegalArgumentException("item should not be null in method enqueue.");
         }
-        Node newNode = new Node();
-        newNode.item = item;
-
-        if (isEmpty()) {
-            newNode.next = null;
-            newNode.prev = null;
-
-            first = newNode;
-            last = first;
-        } else {
-            newNode.prev = last;
-            last.next = newNode;
-            last = newNode;
-        }
+        queue[len] = item;
         len++;
+        resize();
     }
 
     public Item dequeue() {
@@ -48,50 +59,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new NoSuchElementException("no more items to return in the dequeue() method.");
         }
 
-        if (len == 1) {
-            Item item = first.item;
-            first = null;
-            last = null;
-            len--;
-            return item;
-        }
-
         int random = StdRandom.uniform(len);
-
-        if (random == 0) {
-            Item item = first.item;
-            first = first.next;
-            first.prev = null;
-            len--;
-            return item;
-        }
-
-        if (random == len - 1) {
-            Item item = last.item;
-            last = last.prev;
-            last.next = null;
-            len--;
-            return item;
-        }
-
-        int i = 0;
-
-        Node current = first;
-
-        while (i < random) {
-            i++;
-            current = current.next;
-        }
-
-        Item item = current.item;
-
-        Node prev = current.prev;
-        Node next = current.next;
-
-        prev.next = next;
-        next.prev = prev;
-
         len--;
+
+        Item item = queue[random];
+        queue[random] = queue[len];
+
+        resize();
 
         return item;
     }
@@ -102,27 +76,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new NoSuchElementException("no more items to return in the sample() method.");
         }
 
-        if (len == 1) {
-            Item item = first.item;
-            return item;
-        }
-
         int random = StdRandom.uniform(len);
 
-        if (random == 0) {
-            return first.item;
-        }
-
-        int i = 0;
-
-        Node current = first;
-
-        while (i < random) {
-            i++;
-            current = current.next;
-        }
-
-        return current.item;
+        return queue[random];
     }
 
     public Iterator<Item> iterator() {
@@ -130,39 +86,46 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     private class RandomizedQueueIterator implements Iterator<Item> {
-        private Node current = first;
+        Item[] randomQueue;
+        int length;
+        public RandomizedQueueIterator() {
+            length = len;
+            randomQueue = (Item[]) new Object[length];
+            for (int i = 0; i < length; i++) {
+                randomQueue[i] = queue[i];
+            }
+            StdRandom.shuffle(randomQueue);
+        }
 
         public boolean hasNext() {
-            return current != null;
+            return length != 0;
         }
 
         public Item next() {
-            if (current == null) {
-                throw new NoSuchElementException("no more items to return in the next() method.");
+            if (!hasNext()) {
+                throw new NoSuchElementException("no more elements to return");
             }
-
-            Item item = current.item;
-
-            current = current.next;
-
+            length--;
+            Item item = randomQueue[length];
+            randomQueue[length] = null;
             return item;
         }
     }
 
     public static void main(String[] args) {
         RandomizedQueue<String> r = new RandomizedQueue<>();
-        StdOut.println(r.size());
         r.enqueue("hello");
-        r.enqueue("kkk");
-        StdOut.println(r.size());
-        r.enqueue("iii");
+        r.enqueue(",");
+        r.enqueue(" ");
         r.enqueue("world");
-        StdOut.println(r.sample());
-        StdOut.println(r.dequeue());
-        StdOut.println(r.dequeue());
-        StdOut.println(r.size());
-        StdOut.println(r.dequeue());
-        StdOut.println(r.dequeue());
+        r.enqueue("!");
+        r.enqueue("!");
+        r.dequeue();
+        r.dequeue();
+        r.dequeue();
+        r.dequeue();
+        r.dequeue();
+        r.dequeue();
         StdOut.println(r.size());
     }
 }

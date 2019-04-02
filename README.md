@@ -21,3 +21,4 @@
 - [x] fix the `sample` method id RandomizedQueue, 83/100 [feedbacks/7.txt](https://github.com/runningIris/deques-randomized-queue/blob/master/feedbacks/7.txt)
 - [x] change Deque from single linked list to double linked list, 84/100 [feedbacks/8.txt](https://github.com/runningIris/deques-randomized-queue/blob/master/feedbacks/8.txt)
 - [x] optimize the `size()` method, 86/100 [feedbacks/9.txt](https://github.com/runningIris/deques-randomized-queue/blob/master/feedbacks/9.txt)
+- [x] rewrite `RandomizedQueue` use resizing array, 92/100 [feedbacks/10.txt](https://github.com/runningIris/deques-randomized-queue/blob/master/feedbacks/10.txt)
