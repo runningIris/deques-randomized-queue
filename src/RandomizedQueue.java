@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
     private Node first, last;
+    private int len = 0;
 
     private class Node {
         Item item;
@@ -18,12 +19,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public int size() {
-        int len = 0;
-        Node current = first;
-        while (current != null) {
-            len++;
-            current = current.next;
-        }
         return len;
     }
 
@@ -45,6 +40,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             last.next = newNode;
             last = newNode;
         }
+        len++;
     }
 
     public Item dequeue() {
@@ -52,13 +48,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new NoSuchElementException("no more items to return in the dequeue() method.");
         }
 
-        int len = size();
-
         if (len == 1) {
             Item item = first.item;
             first = null;
             last = null;
-
+            len--;
             return item;
         }
 
@@ -68,6 +62,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             Item item = first.item;
             first = first.next;
             first.prev = null;
+            len--;
             return item;
         }
 
@@ -75,6 +70,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             Item item = last.item;
             last = last.prev;
             last.next = null;
+            len--;
             return item;
         }
 
@@ -94,6 +90,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         prev.next = next;
         next.prev = prev;
+
+        len--;
 
         return item;
     }
