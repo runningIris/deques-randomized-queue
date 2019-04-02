@@ -136,10 +136,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private class RandomizedQueueIterator implements Iterator<Item> {
         private Node current = first;
 
-        public void RandomizedQueueIterator() {
-
-        }
-
         public boolean hasNext() {
             return current != null;
         }
