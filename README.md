@@ -1,4 +1,4 @@
-# Deques and Randomized Queue (Assignment)
+# Deques and Randomized Queue (Assignment 2)
 
 ### Progress
 
