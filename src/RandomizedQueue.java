@@ -42,7 +42,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public Item dequeue() {
-        if (first == null) {
+        if (isEmpty()) {
             throw new NoSuchElementException("no more items to return in the dequeue() method.");
         }
         Node oldFirst = first;
@@ -51,41 +51,32 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public Item sample() {
-        if (first == null) {
+        if (isEmpty()) {
             throw new NoSuchElementException("no more items to return in the sample() method.");
         }
 
         int len = size();
 
         if (len == 1) {
-            Item item = first.item;
-            first = null;
-            last = null;
-            return item;
+            return first.item;
         }
 
         int random = StdRandom.uniform(len);
 
         if (random == 0) {
-            Item item = first.item;
-            first = first.next;
-            return item;
+            return first.item;
         }
 
         int i = 0;
 
-        Node prev = new Node();
-        prev.next = first;
+        Node current = first;
 
         while (i < random) {
             i++;
-            prev = prev.next;
+            current = current.next;
         }
 
-        Item item = prev.next.item;
-        prev.next = prev.next.next;
-
-        return item;
+        return current.item;
     }
 
     public Iterator<Item> iterator() {
